@@ -18,8 +18,14 @@ extends State {
 }
 
 export
+interface Params {
+  fast_period: number;
+  slow_period: number;
+}
+
+export
 class SMACross
-extends Bot<TC, State, Signal> {
+extends Bot<TC, State, Signal, Params> {
   private sma(source: number[], size: number) {
     let result!: number[];
     tulind.indicators.sma.indicator([source], [size], (error: any, data: any) => {
@@ -30,13 +36,13 @@ extends Bot<TC, State, Signal> {
   }
 
   protected ready_length() {
-    return 44;
+    return this.config.params.slow_period + 1;
   }
 
   protected calculate(tc: TC, state_queue: State[]): State {
     const source = state_queue.map((state) => state.close).concat([tc.close]);
-    const fast_line = this.sma(source, 9);
-    const slow_line = this.sma(source, 44);
+    const fast_line = this.sma(source, this.config.params.fast_period);
+    const slow_line = this.sma(source, this.config.params.slow_period);
     const sma_fast = fast_line[fast_line.length - 1];
     const sma_slow = slow_line[slow_line.length - 1];
     const diff = sma_fast - sma_slow;

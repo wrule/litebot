@@ -4,9 +4,13 @@ export
 abstract class Bot<
   T extends TC,
   State extends T,
-  Signal extends State
+  Signal extends State,
+  Params,
 > {
-  public constructor(private readonly config: { queue_size: number }) {}
+  public constructor(protected readonly config: {
+    queue_size: number,
+    params: Params,
+  }) { }
 
   private state_queue: State[] = [];
 
