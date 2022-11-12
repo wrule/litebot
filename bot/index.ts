@@ -9,8 +9,8 @@ abstract class Bot<
   private state_queue: State[] = [];
 
   public Update(tc: T) {
-    const new_state = this.calculate(tc, this.state_queue);
-    this.state_queue.push(new_state);
+    this.state_queue.push(this.calculate(tc, this.state_queue));
+    this.execute(this.analyze(this.state_queue));
   }
 
   protected abstract calculate(tc: T, state_queue: State[]): State;
