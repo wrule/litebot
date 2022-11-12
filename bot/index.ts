@@ -1,5 +1,6 @@
+import { TC } from '../tc';
 
 export
-class Bot {
+class Bot<T extends TC> {
 
 }
