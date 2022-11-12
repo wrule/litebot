@@ -5,5 +5,6 @@ interface OHLC
 extends TC {
   open: number;
   high: number;
-  low: number;  
+  low: number;
+  high_first?: boolean;
 }
