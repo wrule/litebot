@@ -20,6 +20,12 @@ abstract class Bot<
     this.state_queue.splice(0, this.state_queue.length - this.config.queue_size);
   }
 
+  public BackTesting(data: T[]) {
+    for (let i = 0; i < data.length; ++i) {
+      this.Update(data[i]);
+    }
+  }
+
   protected abstract ready_length(): number;
 
   protected abstract calculate(tc: T, state_queue: State[]): State;
