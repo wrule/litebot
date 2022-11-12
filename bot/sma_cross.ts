@@ -29,6 +29,10 @@ extends Bot<TC, State, Signal> {
     return result;
   }
 
+  protected ready_length() {
+    return 44;
+  }
+
   protected calculate(tc: TC, state_queue: State[]): State {
     const source = state_queue.map((state) => state.close).concat([tc.close]);
     const fast_line = this.sma(source, 9);
