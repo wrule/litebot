@@ -8,7 +8,6 @@ abstract class Bot<
   Params,
 > {
   public constructor(protected readonly config: {
-    queue_size: number,
     params: Params,
   }) { }
 
@@ -17,7 +16,7 @@ abstract class Bot<
   public Update(tc: T) {
     this.state_queue.push(this.calculate(tc, this.state_queue));
     this.state_queue.length >= this.ready_length() && this.execute(this.analyze(this.state_queue));
-    this.state_queue.splice(0, this.state_queue.length - this.config.queue_size);
+    this.state_queue.splice(0, this.state_queue.length - this.ready_length());
   }
 
   public BackTesting(data: T[]) {
