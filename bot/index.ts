@@ -6,11 +6,14 @@ abstract class Bot<
   State extends T,
   Signal extends State
 > {
+  public constructor(private readonly config: { queue_size: number }) {}
+
   private state_queue: State[] = [];
 
   public Update(tc: T) {
     this.state_queue.push(this.calculate(tc, this.state_queue));
     this.execute(this.analyze(this.state_queue));
+    this.state_queue.splice(0, this.state_queue.length - this.config.queue_size);
   }
 
   protected abstract calculate(tc: T, state_queue: State[]): State;
