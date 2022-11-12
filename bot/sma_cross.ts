@@ -1,3 +1,4 @@
+import tulind from 'tulind';
 import { Bot } from '.';
 import { TC } from '../tc';
 
