@@ -11,6 +11,8 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "@types/node": "^18.11.9",
+    "moment": "^2.29.4",
     "tulind": "^0.8.20"
   }
 }
