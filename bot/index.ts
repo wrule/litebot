@@ -16,10 +16,8 @@ abstract class Bot<
   public Update(tc: T) {
     const states = this.calculate(tc, this.state_queue);
     this.state_queue.push(states[states.length - 1]);
-    if (this.state_queue.length >= this.ready_length()) {
-      const signals = this.analyze(this.state_queue);
-      this.execute(signals[signals.length - 1]);
-    }
+    const signals = this.analyze(this.state_queue);
+    this.execute(signals[signals.length - 1]);
     this.state_queue.splice(0, this.state_queue.length - this.ready_length());
   }
 
