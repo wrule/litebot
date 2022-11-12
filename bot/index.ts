@@ -11,9 +11,8 @@ abstract class Bot<
   private state_queue: State[] = [];
 
   public Update(tc: T) {
-    const already = this.state_queue.length + 1 >= this.ready_length();
-    this.state_queue.push(already ? this.calculate(tc, this.state_queue) : tc as State);
-    already && this.execute(this.analyze(this.state_queue));
+    this.state_queue.push(this.calculate(tc, this.state_queue));
+    this.state_queue.length >= this.ready_length() && this.execute(this.analyze(this.state_queue));
     this.state_queue.splice(0, this.state_queue.length - this.config.queue_size);
   }
 
