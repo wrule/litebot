@@ -30,7 +30,7 @@ extends Bot<TC, State, Signal, Params> {
     let result!: number[];
     tulind.indicators.sma.indicator([source], [size], (error: any, data: any) => {
       if (error) throw error;
-      result = Array(tulind.indicators.sma.start([size])).fill(null).concat(data[0]);
+      result = data[0];
     });
     return result;
   }
