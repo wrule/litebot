@@ -1,4 +1,4 @@
-import { TC } from './tc';
+import { TC } from '.';
 
 export
 interface OHLC
