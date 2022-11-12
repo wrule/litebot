@@ -39,17 +39,19 @@ extends Bot<TC, State, Signal, Params> {
     return this.config.params.slow_period + 1;
   }
 
-  protected calculate(tc: TC, state_queue: State[]): State {
-    const source = state_queue.map((state) => state.close).concat([tc.close]);
-    const fast_line = this.sma(source, this.config.params.fast_period);
-    const slow_line = this.sma(source, this.config.params.slow_period);
-    const sma_fast = fast_line[fast_line.length - 1];
-    const sma_slow = slow_line[slow_line.length - 1];
-    const diff = sma_fast - sma_slow;
-    return { ...tc, sma_fast, sma_slow, diff };
+  protected calculate(tc: TC, state_queue: State[]): State[] {
+    const source = state_queue.concat([tc as State]);
+    const close = source.map((item) => item.close);
+    const fast_line = this.sma(close, this.config.params.fast_period);
+    const slow_line = this.sma(close, this.config.params.slow_period);
+    const last = source[source.length - 1];
+    last.sma_fast = fast_line[fast_line.length - 1];
+    last.sma_slow = slow_line[slow_line.length - 1];
+    last.diff = last.sma_fast - last.sma_slow;
+    return source;
   }
 
-  protected analyze(state_queue: State[]): Signal {
+  protected analyze(state_queue: State[]): Signal[] {
     const last = state_queue[state_queue.length - 1];
     const prev = state_queue[state_queue.length - 2];
     const buy = prev.diff <= 0 && last.diff > 0;

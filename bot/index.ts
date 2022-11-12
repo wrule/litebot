@@ -27,9 +27,9 @@ abstract class Bot<
 
   protected abstract ready_length(): number;
 
-  protected abstract calculate(tc: T, state_queue: State[]): State;
+  protected abstract calculate(tc: T, state_queue: State[]): State[];
 
-  protected abstract analyze(state_queue: State[]): Signal;
+  protected abstract analyze(state_queue: State[]): Signal[];
 
   protected abstract execute(signal: Signal): void;
 }
