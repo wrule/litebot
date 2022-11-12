@@ -13,13 +13,13 @@ extends TC {
 export
 interface Signal
 extends State {
-  buy?: number;
-  sell?: number;
+  buy?: boolean;
+  sell?: boolean;
 }
 
 export
 class SMACross
-extends Bot<TC, State, State> {
+extends Bot<TC, State, Signal> {
   private sma(source: number[], size: number) {
     let result!: number[];
     tulind.indicators.sma.indicator([source], [size], (error: any, data: any) => {
@@ -39,7 +39,7 @@ extends Bot<TC, State, State> {
     return { ...tc, sma_fast, sma_slow, diff };
   }
 
-  protected analyze(state_queue: State[]) {
+  protected analyze(state_queue: State[]): Signal {
     const last = state_queue[state_queue.length - 1];
     const prev = state_queue[state_queue.length - 2];
     const buy = prev.diff <= 0 && last.diff > 0;
