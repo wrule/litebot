@@ -11,17 +11,47 @@ extends TC {
 }
 
 export
+interface Signal
+extends State {
+  buy?: number;
+  sell?: number;
+}
+
+export
 class SMACross
 extends Bot<TC, State, State> {
-  protected calculate(tc: TC, state_queue: State[]) {
-    return null as any;
+  private sma(source: number[], size: number) {
+    let result!: number[];
+    tulind.indicators.sma.indicator([source], [size], (error: any, data: any) => {
+      if (error) throw error;
+      result = data[0];
+    });
+    return result;
+  }
+
+  protected calculate(tc: TC, state_queue: State[]): State {
+    const source = state_queue.map((state) => state.close).concat([tc.close]);
+    const fast_line = this.sma(source, 9);
+    const slow_line = this.sma(source, 44);
+    const sma_fast = fast_line[fast_line.length - 1];
+    const sma_slow = slow_line[slow_line.length - 1];
+    const diff = sma_fast - sma_slow;
+    return { ...tc, sma_fast, sma_slow, diff };
   }
 
   protected analyze(state_queue: State[]) {
-    return null as any;
+    const last = state_queue[state_queue.length - 1];
+    const prev = state_queue[state_queue.length - 2];
+    const buy = prev.diff <= 0 && last.diff > 0;
+    const sell = prev.diff >= 0 && last.diff < 0;
+    return { ...last, buy, sell };
   }
 
-  protected execute(signal: State) {
-
+  protected execute(signal: Signal) {
+    if (signal.sell) {
+      // 卖
+    } else if (signal.buy) {
+      // 买
+    }
   }
 }
