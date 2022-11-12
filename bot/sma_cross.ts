@@ -52,11 +52,11 @@ extends Bot<TC, State, Signal, Params> {
   }
 
   protected analyze(state_queue: State[]): Signal[] {
-    const last = state_queue[state_queue.length - 1];
-    const prev = state_queue[state_queue.length - 2];
-    const buy = prev.diff <= 0 && last.diff > 0;
-    const sell = prev.diff >= 0 && last.diff < 0;
-    return { ...last, buy, sell };
+    return state_queue.map((last, index) => (index < 1 ? last : {
+      ...last,
+      buy: state_queue[index - 1].diff <= 0 && last.diff > 0,
+      sell: state_queue[index - 1].diff >= 0 && last.diff < 0,
+    }));
   }
 
   protected execute(signal: Signal) {
