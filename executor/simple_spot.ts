@@ -31,4 +31,8 @@ class SimpleSpot {
   public Valuation(price: number) {
     return this.funds + this.assets * price;
   }
+
+  public ROI(price: number) {
+    return (this.Valuation(price) - this.init_funds) / this.init_funds;
+  }
 }
