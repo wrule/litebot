@@ -19,12 +19,12 @@ class SimpleSpot {
   }
 
   public BuyAll(price: number) {
-    this.assets = (this.funds / price) * this.fee_multiplier;
+    this.assets += (this.funds / price) * this.fee_multiplier;
     this.funds = 0;
   }
 
   public SellAll(price: number) {
-    this.funds = (this.assets * price) * this.fee_multiplier;
+    this.funds += (this.assets * price) * this.fee_multiplier;
     this.assets = 0;
   }
 
