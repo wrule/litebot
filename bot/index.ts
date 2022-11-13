@@ -1,3 +1,4 @@
+import { SimpleSpot } from '../executor/simple_spot';
 import { TC } from '../tc';
 
 export
@@ -11,6 +12,7 @@ abstract class Bot<
   }) { }
 
   private signal_queue: Signal[] = [];
+  protected spot = new SimpleSpot();
 
   public Update(tc: T) {
     this.signal_queue = this.next([tc], this.signal_queue);
@@ -19,10 +21,12 @@ abstract class Bot<
   }
 
   public BackTestingSimulation(tcs: T[]) {
+    this.spot.Reset();
     tcs.forEach((tc) => this.Update(tc));
   }
 
   public BackTestingBatch(tcs: T[]) {
+    this.spot.Reset();
     this.next(tcs, []).forEach((signal) => this.execute(signal));
   }
 

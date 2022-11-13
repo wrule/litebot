@@ -51,11 +51,9 @@ extends Bot<TC, Signal, Params> {
 
   protected execute(signal: Signal) {
     if (signal.sell) {
-      // 卖
-      console.log('sell', signal.close);
+      this.spot.SellAll(signal.close);
     } else if (signal.buy) {
-      // 买
-      console.log('buy', signal.close);
+      this.spot.BuyAll(signal.close);
     }
   }
 }
