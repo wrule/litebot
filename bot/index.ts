@@ -3,22 +3,20 @@ import { TC } from '../tc';
 export
 abstract class Bot<
   T extends TC,
-  State extends T,
-  Signal extends State,
+  Signal extends T,
   Params,
 > {
   public constructor(protected readonly config: {
     params: Params,
   }) { }
 
-  private state_queue: State[] = [];
+  private signal_queue: Signal[] = [];
 
   public Update(tc: T) {
-    const states = this.calculate(tc, this.state_queue);
-    this.state_queue.push(states[states.length - 1]);
-    const signals = this.analyze(this.state_queue);
+    const signals = this.calculate(tc, this.signal_queue);
+    this.signal_queue.push(signals[signals.length - 1]);
     this.execute(signals[signals.length - 1]);
-    this.state_queue.splice(0, this.state_queue.length - this.ready_length());
+    this.signal_queue.splice(0, this.signal_queue.length - this.ready_length());
   }
 
   public BackTesting(data: T[]) {
@@ -29,9 +27,7 @@ abstract class Bot<
 
   protected abstract ready_length(): number;
 
-  protected abstract calculate(tc: T, state_queue: State[]): State[];
-
-  protected abstract analyze(state_queue: State[]): Signal[];
+  protected abstract calculate(tc: T[], state_queue: Signal[]): Signal[];
 
   protected abstract execute(signal: Signal): void;
 }
