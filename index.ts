@@ -8,6 +8,7 @@ async function main() {
   const old_time = Number(new Date());
   bot.BackTestingBatch(kline);
   console.log(Number(new Date()) - old_time);
+  console.log(bot.SimpleSpot.ROI(kline[kline.length - 1].close));
 }
 
 main();
