@@ -13,9 +13,8 @@ abstract class Bot<
   private signal_queue: Signal[] = [];
 
   public Update(tc: T) {
-    const signals = this.calculate(tc, this.signal_queue);
-    this.signal_queue.push(signals[signals.length - 1]);
-    this.execute(signals[signals.length - 1]);
+    this.signal_queue = this.calculate([tc], this.signal_queue);
+    this.execute(this.signal_queue[this.signal_queue.length - 1]);
     this.signal_queue.splice(0, this.signal_queue.length - this.ready_length());
   }
 
