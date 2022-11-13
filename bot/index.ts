@@ -13,7 +13,7 @@ abstract class Bot<
   private signal_queue: Signal[] = [];
 
   public Update(tc: T) {
-    this.signal_queue = this.calculate([tc], this.signal_queue);
+    this.signal_queue = this.next([tc], this.signal_queue);
     this.execute(this.signal_queue[this.signal_queue.length - 1]);
     this.signal_queue.splice(0, this.signal_queue.length - this.ready_length() + 1);
   }
@@ -22,13 +22,13 @@ abstract class Bot<
     tcs.forEach((tc) => this.Update(tc));
   }
 
-  public BackTestingBatch(data: T[]) {
-    this.calculate(data, []).forEach((signal) => this.execute(signal));
+  public BackTestingBatch(tcs: T[]) {
+    this.next(tcs, []).forEach((signal) => this.execute(signal));
   }
 
   protected abstract ready_length(): number;
 
-  protected abstract calculate(tc: T[], state_queue: Signal[]): Signal[];
+  protected abstract next(tc: T[], signal_queue: Signal[]): Signal[];
 
   protected abstract execute(signal: Signal): void;
 }

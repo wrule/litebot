@@ -34,7 +34,7 @@ extends Bot<TC, Signal, Params> {
     return this.config.params.slow_period + 1;
   }
 
-  protected calculate(tcs: TC[], signal_queue: Signal[] = []): Signal[] {
+  protected next(tcs: TC[], signal_queue: Signal[] = []): Signal[] {
     const result = signal_queue.concat(tcs as Signal[]);
     const close = result.map((item) => item.close);
     const fast_line = this.sma(close, this.config.params.fast_period);
