@@ -1,6 +1,6 @@
 import { SMACross } from './bot/sma_cross';
 import { ArrayToKLine } from './tc/ohlcv';
-const data = require('./data/ETH_USDT-30m.json');
+const data = require('./data/ETH_USDT-2h.json');
 
 async function main() {
   const kline = ArrayToKLine(data);
