@@ -6,7 +6,7 @@ async function main() {
   const kline = ArrayToKLine(data);
   const bot = new SMACross({ params: { fast_period: 9, slow_period: 44 } });
   const old_time = Number(new Date());
-  bot.BackTestingSimulation(kline);
+  bot.BackTestingBatch(kline);
   console.log(Number(new Date()) - old_time);
 }
 
