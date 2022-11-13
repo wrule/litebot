@@ -15,7 +15,7 @@ abstract class Bot<
   public Update(tc: T) {
     this.signal_queue = this.calculate([tc], this.signal_queue);
     this.execute(this.signal_queue[this.signal_queue.length - 1]);
-    this.signal_queue.splice(0, this.signal_queue.length - this.ready_length());
+    this.signal_queue.splice(0, this.signal_queue.length - this.ready_length() + 1);
   }
 
   public BackTesting(data: T[]) {
