@@ -1,9 +1,13 @@
-import { OHLC } from './ohlc';
+import { TC } from '.';
 
 export
 interface OHLCV
-extends OHLC {
+extends TC {
+  open: number;
+  high: number;
+  low: number;
   volume: number;
+  high_first?: boolean;
 }
 
 export
