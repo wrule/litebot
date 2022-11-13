@@ -2,8 +2,8 @@
 export
 class SimpleSpot {
   public constructor(
-    private readonly init_funds: number = 100,
-    private readonly fee: number = 0.001,
+    private readonly init_funds = 100,
+    private readonly fee = 0.001,
   ) { }
 
   private funds = 0;
@@ -26,5 +26,9 @@ class SimpleSpot {
   public SellAll(price: number) {
     this.funds = (this.assets * price) * this.fee_multiplier;
     this.assets = 0;
+  }
+
+  public Valuation(price: number) {
+    return this.funds + this.assets * price;
   }
 }
