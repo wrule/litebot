@@ -18,10 +18,12 @@ abstract class Bot<
     this.signal_queue.splice(0, this.signal_queue.length - this.ready_length() + 1);
   }
 
-  public BackTesting(data: T[]) {
-    for (let i = 0; i < data.length; ++i) {
-      this.Update(data[i]);
-    }
+  public BackTestingSimulation(tcs: T[]) {
+    tcs.forEach((tc) => this.Update(tc));
+  }
+
+  public BackTestingBatch(data: T[]) {
+    this.calculate(data, []).forEach((signal) => this.execute(signal));
   }
 
   protected abstract ready_length(): number;
