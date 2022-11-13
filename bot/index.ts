@@ -12,7 +12,11 @@ abstract class Bot<
   }) { }
 
   private signal_queue: Signal[] = [];
-  protected spot = new SimpleSpot();
+  protected simple_spot = new SimpleSpot();
+
+  public get SimpleSpot() {
+    return this.simple_spot;
+  }
 
   public Update(tc: T) {
     this.signal_queue = this.next([tc], this.signal_queue);
@@ -21,12 +25,12 @@ abstract class Bot<
   }
 
   public BackTestingSimulation(tcs: T[]) {
-    this.spot.Reset();
+    this.simple_spot.Reset();
     tcs.forEach((tc) => this.Update(tc));
   }
 
   public BackTestingBatch(tcs: T[]) {
-    this.spot.Reset();
+    this.simple_spot.Reset();
     this.next(tcs, []).forEach((signal) => this.execute(signal));
   }
 
