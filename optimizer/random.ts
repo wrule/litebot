@@ -23,10 +23,10 @@ function RandomSelect(domain: Domain) {
 export
 interface Option<Params> {
   domain: Domain,
-  target: (param: Params) => number;
-  param_mapper?: (value: Value) => Params;
-  param_filter?: (param: Params) => boolean;
-  sample?: (param: Params, result: number) => void;
+  target: (params: Params) => number;
+  params_mapper?: (value: Value) => Params;
+  params_filter?: (params: Params) => boolean;
+  sample?: (params: Params, result: number) => void;
 }
 
 export
@@ -34,8 +34,8 @@ class Random<Params> {
   public Search(options: Option<Params>) {
     while (true) {
       const value = RandomSelect(options.domain);
-      const params = options.param_mapper ? options.param_mapper(value) : value as Params;
-      if (options.param_filter && !options.param_filter(params)) continue;
+      const params = options.params_mapper ? options.params_mapper(value) : value as Params;
+      if (options.params_filter && !options.params_filter(params)) continue;
       const result = options.target(params);
       options.sample && options.sample(params, result);
     }
