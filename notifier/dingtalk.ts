@@ -3,16 +3,13 @@ import crypto from 'crypto';
 import { INotifier } from '.';
 
 export
-interface Config {
-  access_token: string;
-  secret: string;
-  at_mobiles?: string[];
-}
-
-export
 class DingTalk
 implements INotifier {
-  public constructor(private readonly config: Config) { }
+  public constructor(private readonly config: {
+    access_token: string;
+    secret: string;
+    at_mobiles?: string[];
+  }) { }
 
   public async SendMessage(message: string) {
     try {
