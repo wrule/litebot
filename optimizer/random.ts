@@ -32,11 +32,17 @@ interface Option<Params> {
 export
 class Random<Params> {
   public Search(option: Option<Params>) {
+    let [max, max_params] = [-Infinity, null as Params];
     while (true) {
       const value = RandomSelect(option.domain);
       const params = option.params_mapper ? option.params_mapper(value) : value as Params;
       if (option.params_filter && !option.params_filter(params)) continue;
       const result = option.target(params);
+      if (result > max) {
+        max = result;
+        max_params = params;
+        console.log(max, max_params);
+      }
       option.sample && option.sample(params, result);
     }
   }
