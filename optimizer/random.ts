@@ -1,18 +1,17 @@
-
 export
 interface Domain {
-  [param_name: string]: [number, number];
+  [key: string]: [number, number];
 }
 
 export
-interface Param {
-  [param_name: string]: number;
+interface Value {
+  [key: string]: number;
 }
 
 export
-function RandomSelect(domain: Domain) {
-  const result: Param = { };
-  Object.entries(domain).forEach(([key, value]) => {
+function RandomSelect(domains: Domain) {
+  const result: Value = { };
+  Object.entries(domains).forEach(([key, value]) => {
     const min = Math.min(...value);
     const max = Math.max(...value);
     const diff = max - min;
@@ -22,17 +21,23 @@ function RandomSelect(domain: Domain) {
 }
 
 export
-interface A {
+interface Option<Param> {
   domain: Domain,
-  domain_filter: number;
-  domain_mapper: number;
-  target: () => number;
-  loss: () => number;
+  target: (param: Param) => number;
+  param_mapper?: (value: Value) => Param;
+  param_filter?: (param: Param) => boolean;
+  better?: (param: Param, result: number) => void;
 }
 
 export
 class Random {
-  public Search() {
-
+  public Search<Param>(options: Option<Param>) {
+    while (true) {
+      const value = RandomSelect(options.domain);
+      const params = options.param_mapper ? options.param_mapper(value) : value as Param;
+      if (options.param_filter && !options.param_filter(params)) continue;
+      const result = options.target(params);
+      options.better && options.better(params, result);
+    }
   }
 }
