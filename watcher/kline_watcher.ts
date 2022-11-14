@@ -20,9 +20,8 @@ class KLineWatcher {
       console.log(e);
     } finally {
       clearTimeout(this.timer);
-      if (!this.keep) return;
       this.timer = setTimeout(() => {
-        this.Start(exchange, symbol, timeframe, limit, interval);
+        this.keep && this.Start(exchange, symbol, timeframe, limit, interval);
       }, interval);
     }
   }
