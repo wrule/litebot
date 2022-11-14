@@ -1,7 +1,7 @@
 import { Params, SMACross } from './bot/sma_cross';
 import { Random } from './optimizer/random';
 import { ArrayToKLine } from './tc/ohlcv';
-const data = require('./data/ETH_USDT-30m.json');
+const data = require('./data/ETH_USDT-2h.json');
 
 async function main() {
   const kline = ArrayToKLine(data);
@@ -21,7 +21,7 @@ async function main() {
       fast_period: Math.min(value.fast_period, value.slow_period),
       slow_period: Math.max(value.fast_period, value.slow_period),
     }),
-    params_filter: (params) => Math.abs(params.slow_period - params.fast_period) > 20,
+    params_filter: (params) => Math.abs(params.slow_period - params.fast_period) > 5,
   });
 }
 
