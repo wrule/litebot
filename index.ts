@@ -17,11 +17,11 @@ async function main() {
       bot.BackTestingBatch(kline);
       return bot.SimpleSpot.ROI(kline[kline.length - 1].close);
     },
-    params_mapper: (value) => ({
+    mapper: (value) => ({
       fast_period: Math.min(value.fast_period, value.slow_period),
       slow_period: Math.max(value.fast_period, value.slow_period),
     }),
-    params_filter: (params) => Math.abs(params.slow_period - params.fast_period) > 5,
+    filter: (params) => Math.abs(params.slow_period - params.fast_period) > 5,
   });
 }
 
