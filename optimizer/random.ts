@@ -32,7 +32,7 @@ interface Option<Params> {
 export
 class Random<Params> {
   public Search(option: Option<Params>) {
-    for (let i = 0; i < 1000; ++i) {
+    while (true) {
       const value = RandomSelect(option.domain);
       const params = option.params_mapper ? option.params_mapper(value) : value as Params;
       if (option.params_filter && !option.params_filter(params)) continue;
