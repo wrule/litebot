@@ -1,4 +1,3 @@
-
 export
 class SimpleSpot {
   public constructor(
