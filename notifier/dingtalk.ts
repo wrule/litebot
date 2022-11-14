@@ -1,10 +1,10 @@
 import axios from 'axios';
 import crypto from 'crypto';
-import { INotifier } from '.';
+import { Notifier } from '.';
 
 export
 class DingTalk
-implements INotifier {
+implements Notifier {
   public constructor(private readonly config: {
     access_token: string;
     secret: string;

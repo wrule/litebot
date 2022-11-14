@@ -1,4 +1,4 @@
 export
-interface INotifier {
+interface Notifier {
   SendMessage(message: string): void;
 }
