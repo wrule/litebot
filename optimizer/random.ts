@@ -32,15 +32,12 @@ interface Option<Params> {
 export
 class Random<Params> {
   public Search(option: Option<Params>) {
-    let count = 0;
-    while (true) {
-      if (count % 100 === 0) console.log(count);
+    for (let i = 0; i < 1000; ++i) {
       const value = RandomSelect(option.domain);
       const params = option.params_mapper ? option.params_mapper(value) : value as Params;
       if (option.params_filter && !option.params_filter(params)) continue;
       const result = option.target(params);
       option.sample && option.sample(params, result);
-      count++;
     }
   }
 }
