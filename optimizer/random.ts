@@ -31,13 +31,13 @@ interface Option<Params> {
 
 export
 class Random<Params> {
-  public Search(options: Option<Params>) {
+  public Search(option: Option<Params>) {
     while (true) {
-      const value = RandomSelect(options.domain);
-      const params = options.params_mapper ? options.params_mapper(value) : value as Params;
-      if (options.params_filter && !options.params_filter(params)) continue;
-      const result = options.target(params);
-      options.sample && options.sample(params, result);
+      const value = RandomSelect(option.domain);
+      const params = option.params_mapper ? option.params_mapper(value) : value as Params;
+      if (option.params_filter && !option.params_filter(params)) continue;
+      const result = option.target(params);
+      option.sample && option.sample(params, result);
     }
   }
 }
