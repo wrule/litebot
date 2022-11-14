@@ -21,6 +21,7 @@ async function main() {
       fast_period: Math.min(value.fast_period, value.slow_period),
       slow_period: Math.max(value.fast_period, value.slow_period),
     }),
+    params_filter: (params) => Math.abs(params.slow_period - params.fast_period) > 20,
   });
 }
 
