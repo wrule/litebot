@@ -1,4 +1,5 @@
 import { Exchange } from 'ccxt';
+import { ArrayToKLine } from '../tc/ohlcv';
 
 export
 class KLineWatcher {
@@ -10,7 +11,7 @@ class KLineWatcher {
     interval = 1000,
   ) {
     try {
-      const kline = await exchange.fetchOHLCV(symbol, timeframe, undefined, limit);
+      const kline = ArrayToKLine(await exchange.fetchOHLCV(symbol, timeframe, undefined, limit));
       console.log(kline);
     } catch (e) {
       console.log(e);
