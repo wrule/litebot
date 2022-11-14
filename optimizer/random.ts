@@ -24,9 +24,8 @@ export
 interface Option<Params> {
   domain: Domain,
   target: (params: Params) => number;
-  params_mapper?: (value: Value) => Params;
-  params_filter?: (params: Params) => boolean;
-  sample?: (params: Params, result: number) => void;
+  mapper?: (value: Value) => Params;
+  filter?: (params: Params) => boolean;
 }
 
 export
@@ -35,15 +34,13 @@ class Random<Params> {
     let [max, max_params] = [-Infinity, null as Params];
     while (true) {
       const value = RandomSelect(option.domain);
-      const params = option.params_mapper ? option.params_mapper(value) : value as Params;
-      if (option.params_filter && !option.params_filter(params)) continue;
+      const params = option.mapper ? option.mapper(value) : value as Params;
+      if (option.filter && !option.filter(params)) continue;
       const result = option.target(params);
       if (result > max) {
-        max = result;
-        max_params = params;
+        [max, max_params] = [result, params];
         console.log(max, max_params);
       }
-      option.sample && option.sample(params, result);
     }
   }
 }
