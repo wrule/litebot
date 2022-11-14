@@ -7,7 +7,9 @@ import { KLineWatcher } from './watcher/kline_watcher';
 
 async function main() {
   const watcher = new KLineWatcher();
-  watcher.Start(new binance(), 'ETH/USDT', '1m', 2, 1000);
+  watcher.Start(new binance(), 'ETH/USDT', '1m', 2, (kline) => {
+    console.log(kline);
+  });
 
   // const kline = ArrayToKLine(data);
 
