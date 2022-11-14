@@ -16,7 +16,7 @@ function RandomSelect(domain: Domain) {
     const min = Math.min(...value);
     const max = Math.max(...value);
     const diff = max - min;
-    result[key] = Math.floor(min + Math.random() * diff);
+    result[key] = Math.floor(min + diff * Math.random());
   });
   return result;
 }
