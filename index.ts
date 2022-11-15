@@ -22,7 +22,7 @@ async function main() {
       console.log(moment(new Date(kline[0].time)).format('YYYY-MM-DD HH:mm:ss'))
       bot.Update(kline[0]);
     }
-  }, 1000);
+  }, 0);
 }
 
 main();
