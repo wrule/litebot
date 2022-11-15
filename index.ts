@@ -4,11 +4,8 @@ import { SMACross } from './bot/sma_cross';
 import { SimpleSpot } from './executor/simple_spot';
 import { KLineWatcher } from './watcher/kline_watcher';
 
-const secret = require('./.secret.json');
-const dingtalk = require('./.dingtalk.json');
-
 async function main() {
-  const exchange = new binance({ ...secret, enableRateLimit: true });
+  const exchange = new binance({ });
   console.log('加载市场...');
   await exchange.loadMarkets();
   const executor = new SimpleSpot(100, 0.001);
