@@ -9,7 +9,9 @@ class KLineWatcher {
     timeframe: string,
     limit: number,
   ) {
-    return ArrayToKLine(await exchange.fetchOHLCV(symbol, timeframe, undefined, limit));
+    const data = await exchange.fetchOHLCV(symbol, timeframe, undefined, limit + 1);
+    data.splice(data.length - 1, 1);
+    return ArrayToKLine(data);
   }
 
   public async Start(
