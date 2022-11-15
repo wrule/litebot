@@ -18,15 +18,19 @@ class RealSpot {
   private funds = 0;
   private assets = 0;
 
-  private send_message(order: Order, price: number, in_out: [number, number], order_time: string) {
-    this.config.notifier?.SendMessage(JSON.stringify({
+  private build_message(order: Order, price: number, in_out: [number, number], order_time: string) {
+    return JSON.stringify({
       time: moment(new Date(order.timestamp)).format('YYYY-MM-DD HH:mm:ss'),
       symbol: order.symbol, side: order.side,
       in_amount: in_out[0], out_amount: in_out[1],
       expected_price: price, final_price: order.price, deviation: `${(order.price - price) / price * 100}%`,
       funds: this.funds, assets: this.assets,
       order_time,
-    }, null ,2));
+    }, null ,2);
+  }
+
+  private send_message(message: string) {
+    this.config.notifier?.SendMessage(message);
   }
 
   public async BuyAll(price: number) {
@@ -45,7 +49,7 @@ class RealSpot {
     const out_amount = order.amount - (this.config.symbol.startsWith(order.fee.currency) ? order.fee.cost : 0);
     this.funds -= in_amount;
     this.assets += out_amount;
-    this.send_message(order, price, [in_amount, out_amount], order_time);
+    this.send_message(this.build_message(order, price, [in_amount, out_amount], order_time));
   }
 
   public async SellAll(price: number) {
@@ -60,6 +64,6 @@ class RealSpot {
     const out_amount = order.cost - (this.config.symbol.endsWith(order.fee.currency) ? order.fee.cost : 0);
     this.assets -= in_amount;
     this.funds += out_amount;
-    this.send_message(order, price, [in_amount, out_amount], order_time);
+    this.send_message(this.build_message(order, price, [in_amount, out_amount], order_time));
   }
 }
