@@ -15,7 +15,7 @@ async function main() {
   const bot = new SMACross(executor, { fast_period: 9, slow_period: 44 });
   const watcher = new KLineWatcher();
   console.log('初始化机器人...');
-  (await watcher.Fetch(exchange, 'ETH/USDT', '1m', 100)).forEach((item) => bot.Update(item, false));
+  (await watcher.Fetch(exchange, 'ETH/USDT', '1m', bot.ReadyLength())).forEach((item) => bot.Update(item, false));
   console.log('监控市场...');
   watcher.Start(exchange, 'ETH/USDT', '1m', 1, (kline) => {
     if (kline[0]?.time > bot.SignalQueue[bot.SignalQueue.length - 1]?.time) {

@@ -40,7 +40,7 @@ extends Bot<TC, Signal, Params> {
     return result;
   }
 
-  protected ready_length() {
+  public ReadyLength() {
     return this.config.params.slow_period + 1;
   }
 

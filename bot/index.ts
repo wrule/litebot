@@ -25,7 +25,7 @@ abstract class Bot<
   public Update(tc: T, enable = true) {
     this.signal_queue = this.next([tc], this.signal_queue);
     enable && this.execute(this.signal_queue[this.signal_queue.length - 1]);
-    this.signal_queue.splice(0, this.signal_queue.length - this.ready_length() + 1);
+    this.signal_queue.splice(0, this.signal_queue.length - this.ReadyLength() + 1);
   }
 
   public BackTestingSimulation(tcs: T[]) {
@@ -38,7 +38,7 @@ abstract class Bot<
     this.next(tcs, []).forEach((signal) => this.execute(signal));
   }
 
-  protected abstract ready_length(): number;
+  public abstract ReadyLength(): number;
 
   protected abstract next(tc: T[], signal_queue: Signal[]): Signal[];
 
