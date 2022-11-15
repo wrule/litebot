@@ -8,12 +8,10 @@ async function main() {
   await exchange.loadMarkets();
   const spot = new RealSpot({ exchange, symbol: 'UNI/USDT', init_funds: 15, init_assets: 0 });
   console.log('发起交易...');
-  console.log(await spot.BuyAll());
-  console.log(await spot.SellAll());
-  console.log(await spot.BuyAll());
-  console.log(await spot.SellAll());
-  console.log(await spot.BuyAll());
-  console.log(await spot.SellAll());
+  for(let i = 0; i < 100; ++i) {
+    console.log(await spot.BuyAll());
+    console.log(await spot.SellAll());
+  }
   console.log('结束交易');
 }
 
