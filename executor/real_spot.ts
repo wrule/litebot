@@ -28,6 +28,7 @@ class RealSpot {
         quoteOrderQty: this.config.exchange.costToPrecision(this.config.symbol, this.funds),
       },
     );
+    fs.writeFileSync('output.json', JSON.stringify(order, null, 2));
     const in_amount = order.cost;
     const out_amount = order.amount - (this.config.symbol.startsWith(order.fee.currency) ? order.fee.cost : 0);
     this.funds -= in_amount;
