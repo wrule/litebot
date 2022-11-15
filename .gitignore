@@ -107,3 +107,4 @@ dist
 /data
 output.json
 .secret.json
+.dingtalk.json
