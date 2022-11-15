@@ -17,7 +17,7 @@ class RealSpot {
   private funds = 0;
   private assets = 0;
 
-  public async BuyAll() {
+  public async BuyAll(price: number) {
     const order = await this.config.exchange.createMarketOrder(
       this.config.symbol,
       'buy',
@@ -33,7 +33,7 @@ class RealSpot {
     this.assets += out_amount;
   }
 
-  public async SellAll() {
+  public async SellAll(price: number) {
     const order = await this.config.exchange.createMarketOrder(
       this.config.symbol,
       'sell',
