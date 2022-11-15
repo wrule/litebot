@@ -7,11 +7,11 @@ class RealSpot {
     exchange: Exchange,
     symbol: string,
     init_funds: number,
-    init_assets: number,
+    init_assets?: number,
     notifier?: Notifier,
   }) {
     this.funds = this.config.init_funds;
-    this.assets = this.config.init_assets;
+    this.assets = this.config.init_assets || 0;
   }
 
   private funds = 0;
