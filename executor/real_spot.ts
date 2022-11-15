@@ -18,6 +18,7 @@ class RealSpot {
   private assets = 0;
 
   public async BuyAll(price: number) {
+    const request_time = Number(new Date());
     const order = await this.config.exchange.createMarketOrder(
       this.config.symbol,
       'buy',
