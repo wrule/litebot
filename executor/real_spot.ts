@@ -1,6 +1,5 @@
 import { Exchange } from 'ccxt';
 import { Notifier } from '../notifier';
-import fs from 'fs';
 
 export
 class RealSpot {
