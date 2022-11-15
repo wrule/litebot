@@ -3,6 +3,12 @@ import { Bot } from '.';
 import { TC } from '../tc';
 
 export
+interface Executor {
+  BuyAll: (price: number) => void;
+  SellAll: (price: number) => void;
+}
+
+export
 interface Signal
 extends TC {
   sma_fast: number;
@@ -21,6 +27,10 @@ interface Params {
 export
 class SMACross
 extends Bot<TC, Signal, Params> {
+  public constructor(private readonly executor: Executor, params: Params) {
+    super({ params });
+  }
+
   private sma(source: number[], size: number) {
     let result!: number[];
     tulind.indicators.sma.indicator([source], [size], (error: any, data: any) => {
@@ -51,9 +61,9 @@ extends Bot<TC, Signal, Params> {
 
   protected execute(signal: Signal) {
     if (signal.sell) {
-      this.simple_spot.SellAll(signal.close);
+      this.executor.SellAll(signal.close);
     } else if (signal.buy) {
-      this.simple_spot.BuyAll(signal.close);
+      this.executor.BuyAll(signal.close);
     }
   }
 }
