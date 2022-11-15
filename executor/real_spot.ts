@@ -37,5 +37,6 @@ class RealSpot {
       'sell',
       this.config.exchange.amountToPrecision(this.config.symbol, this.assets),
     );
+    fs.writeFileSync('output.json', JSON.stringify(order, null, 2));
   }
 }
