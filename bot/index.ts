@@ -14,6 +14,10 @@ abstract class Bot<
   private signal_queue: Signal[] = [];
   protected simple_spot = new SimpleSpot();
 
+  public get SignalQueue() {
+    return this.signal_queue;
+  }
+
   public get SimpleSpot() {
     return this.simple_spot;
   }
