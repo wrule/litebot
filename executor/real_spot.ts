@@ -1,5 +1,6 @@
 import { Exchange } from 'ccxt';
 import { Notifier } from '../notifier';
+import fs from 'fs';
 
 export
 class RealSpot {
@@ -27,6 +28,7 @@ class RealSpot {
         quoteOrderQty: this.config.exchange.costToPrecision(this.config.symbol, this.funds),
       },
     );
+    fs.writeFileSync('output.json', JSON.stringify(order, null, 2));
   }
 
   public async SellAll() {
