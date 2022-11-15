@@ -4,8 +4,9 @@ const secret = require('./.secret.json');
 
 async function main() {
   const exchange = new binance({ ...secret, enableRateLimit: true });
-  const spot = new RealSpot({ exchange, symbol: 'BTC/USDT', init_funds: 15 });
-  spot.BuyAll();
+  await exchange.loadMarkets();
+  const spot = new RealSpot({ exchange, symbol: 'BTC/USDT', init_funds: 0, init_assets: 0.0007 });
+  spot.SellAll();
 }
 
 main();
