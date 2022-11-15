@@ -1,4 +1,5 @@
 import { Exchange } from 'ccxt';
+import moment from 'moment';
 import { Notifier } from '../notifier';
 
 export
@@ -28,10 +29,19 @@ class RealSpot {
         quoteOrderQty: this.config.exchange.costToPrecision(this.config.symbol, this.funds),
       },
     );
+    const response_time = Number(new Date());
     const in_amount = order.cost;
     const out_amount = order.amount - (this.config.symbol.startsWith(order.fee.currency) ? order.fee.cost : 0);
     this.funds -= in_amount;
     this.assets += out_amount;
+    this.config.notifier?.SendMessage(JSON.stringify({
+      time: moment(new Date(order.timestamp)).format('YYYY-MM-DD HH:mm:ss'),
+      symbol: this.config.symbol, side: order.side,
+      in_amount, out_amount,
+      expected_price: price, final_price: order.price, deviation: `${(order.price - price) / price * 100}%`,
+      order_time: `${(response_time - request_time) / 1000}s`,
+      funds: this.funds, assets: this.assets,
+    }, null ,2));
   }
 
   public async SellAll(price: number) {
