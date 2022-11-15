@@ -8,7 +8,7 @@ async function main() {
   await exchange.loadMarkets();
   const spot = new RealSpot({ exchange, symbol: 'ENS/USDT', init_funds: 15, init_assets: 0 });
   console.log('发起交易...');
-  await spot.SellAll();
+  await spot.BuyAll();
   console.log('结束交易');
 }
 
