@@ -9,7 +9,10 @@ class RealSpot {
     init_funds: number,
     init_assets: number,
     notifier?: Notifier,
-  }) { }
+  }) {
+    this.funds = this.config.init_funds;
+    this.assets = this.config.init_assets;
+  }
 
   private funds = 0;
   private assets = 0;
