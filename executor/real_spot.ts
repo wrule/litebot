@@ -33,7 +33,7 @@ class RealSpot {
     const out_amount = order.amount - (this.config.symbol.startsWith(order.fee.currency) ? order.fee.cost : 0);
     this.funds -= in_amount;
     this.assets += out_amount;
-    return [in_amount, out_amount];
+    return [this.funds, this.assets];
   }
 
   public async SellAll() {
@@ -47,6 +47,6 @@ class RealSpot {
     const out_amount = order.cost - (this.config.symbol.endsWith(order.fee.currency) ? order.fee.cost : 0);
     this.assets -= in_amount;
     this.funds += out_amount;
-    return [in_amount, out_amount];
+    return [this.funds, this.assets];
   }
 }
