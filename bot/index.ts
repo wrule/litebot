@@ -18,9 +18,9 @@ abstract class Bot<
     return this.simple_spot;
   }
 
-  public Update(tc: T) {
+  public Update(tc: T, enable = true) {
     this.signal_queue = this.next([tc], this.signal_queue);
-    this.execute(this.signal_queue[this.signal_queue.length - 1]);
+    enable && this.execute(this.signal_queue[this.signal_queue.length - 1]);
     this.signal_queue.splice(0, this.signal_queue.length - this.ready_length() + 1);
   }
 
