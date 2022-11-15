@@ -3,6 +3,15 @@ import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
 
 export
 class KLineWatcher {
+  public async Fetch(
+    exchange: Exchange,
+    symbol: string,
+    timeframe: string,
+    limit: number,
+  ) {
+    return ArrayToKLine(await exchange.fetchOHLCV(symbol, timeframe, undefined, limit));
+  }
+
   public async Start(
     exchange: Exchange,
     symbol: string,
@@ -12,7 +21,7 @@ class KLineWatcher {
     interval = 1000,
   ) {
     try {
-      callback(ArrayToKLine(await exchange.fetchOHLCV(symbol, timeframe, undefined, limit)));
+      callback(await this.Fetch(exchange, symbol, timeframe, limit));
     } catch (e) {
       console.log(e);
     } finally {
