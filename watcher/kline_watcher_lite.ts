@@ -43,6 +43,7 @@ class KLineWatcherLite {
     callback: (kline: OHLCV[]) => void,
   ) {
     try {
+      this.active_mode = true;
       callback(await this.Fetch(exchange, symbol, timeframe, 1));
     } catch (e) {
       console.log(e);
