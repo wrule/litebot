@@ -24,7 +24,7 @@ abstract class Bot<
 
   public Update(tc: T, enable = true) {
     this.signal_queue = this.next([tc], this.signal_queue);
-    enable && this.execute(this.signal_queue[this.signal_queue.length - 1]);
+    enable && this.exec(this.signal_queue[this.signal_queue.length - 1]);
     this.signal_queue.splice(0, this.signal_queue.length - this.ReadyLength() + 1);
   }
 
@@ -35,12 +35,12 @@ abstract class Bot<
 
   public BackTestingBatch(tcs: T[]) {
     this.simple_spot.Reset();
-    this.next(tcs, []).forEach((signal) => this.execute(signal));
+    this.next(tcs, []).forEach((signal) => this.exec(signal));
   }
 
   public abstract ReadyLength(): number;
 
   protected abstract next(tc: T[], signal_queue: Signal[]): Signal[];
 
-  protected abstract execute(signal: Signal): void;
+  protected abstract exec(signal: Signal): void;
 }

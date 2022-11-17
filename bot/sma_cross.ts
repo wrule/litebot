@@ -45,7 +45,7 @@ extends Bot<TC, Signal, Params> {
     return result;
   }
 
-  protected execute(signal: Signal) {
+  protected exec(signal: Signal) {
     if (signal.sell) {
       this.executor.SellAll(signal.close);
     } else if (signal.buy) {
