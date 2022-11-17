@@ -26,7 +26,7 @@ extends Bot<TC, Signal, Params> {
     super({ params });
   }
 
-  public ReadyLength() {
+  public length() {
     return this.config.params.slow_period + 1;
   }
 
