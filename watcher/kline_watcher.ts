@@ -49,7 +49,7 @@ class KLineWatcher {
     this.Start(exchange, symbol, timeframe, (kline) => {
       if (kline[0]?.time > bot.SignalQueue[bot.SignalQueue.length - 1]?.time) {
         bot.Update(kline[0]);
-        console.log(kline[9]);
+        console.log(kline[0]);
       }
     }, interval);
   }
