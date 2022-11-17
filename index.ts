@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { binance } from 'ccxt';
 import { SMACross } from './bot/sma_cross';
 import { SimpleSpot } from './executor/simple_spot';
