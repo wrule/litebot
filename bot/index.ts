@@ -3,9 +3,7 @@ import { TC } from '../tc';
 
 export
 abstract class Bot<T extends TC, Params, Signal extends T> {
-  public constructor(protected readonly config: {
-    params: Params,
-  }) { }
+  public constructor(protected readonly params: Params) { }
 
   private signal_queue: Signal[] = [];
   protected simple_spot = new SimpleSpot();
