@@ -2,11 +2,7 @@ import { SimpleSpot } from '../executor/simple_spot';
 import { TC } from '../tc';
 
 export
-abstract class Bot<
-  T extends TC,
-  Signal extends T,
-  Params,
-> {
+abstract class Bot<T extends TC, Params, Signal extends T> {
   public constructor(protected readonly config: {
     params: Params,
   }) { }
