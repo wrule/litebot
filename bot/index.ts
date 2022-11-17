@@ -1,4 +1,3 @@
-import { SimpleSpot } from '../executor/simple_spot';
 import { TC } from '../tc';
 
 export
@@ -6,14 +5,9 @@ abstract class Bot<T extends TC, Params, Signal extends T> {
   public constructor(protected readonly params: Params) { }
 
   private signal_queue: Signal[] = [];
-  protected simple_spot = new SimpleSpot();
 
   public get SignalQueue() {
     return this.signal_queue;
-  }
-
-  public get SimpleSpot() {
-    return this.simple_spot;
   }
 
   public Update(tc: T, enable = true) {
@@ -23,12 +17,10 @@ abstract class Bot<T extends TC, Params, Signal extends T> {
   }
 
   public BackTestingSimulation(tcs: T[]) {
-    this.simple_spot.Reset();
     tcs.forEach((tc) => this.Update(tc));
   }
 
   public BackTestingBatch(tcs: T[]) {
-    this.simple_spot.Reset();
     this.next(tcs, []).forEach((signal) => this.exec(signal));
   }
 
