@@ -2,6 +2,14 @@ import { Exchange } from 'ccxt';
 import { Bot } from '../bot';
 import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
 
+
+export
+function TimeFrameToMS(timeframe: string) {
+  const result = /^(\d+)(m|h)$/.exec(timeframe);
+  if (result == null) throw 'unknown timeframe';
+  return Number(result[1]) * (result[2] == 'm' ? 60 * 1e3 : 60 * 1e6);
+}
+
 export
 class KLineWatcherLite {
   public async Fetch(
