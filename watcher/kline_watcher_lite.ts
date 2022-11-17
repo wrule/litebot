@@ -25,9 +25,9 @@ class KLineWatcherLite {
     return kline;
   }
 
-  private interval = 1000;
-  private kline_interval = 1000;
-  private active_mode = true;
+  private interval!: number;
+  private kline_interval!: number;
+  private active_mode!: boolean;
 
   private get smart_interval() {
     if (this.active_mode) return this.interval;
@@ -60,6 +60,7 @@ class KLineWatcherLite {
     bot: Bot<any, any, any>,
     interval = 1000,
   ) {
+    this.active_mode = true;
     this.interval = interval;
     this.kline_interval = TimeFrameToMS(timeframe);
     console.log('initialize data for the robot...');
