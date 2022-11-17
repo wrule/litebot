@@ -1,7 +1,7 @@
 import { sma } from '../tulind_wrapper';
 import { Bot } from '.';
-import { FullSpot } from '../executor/full_spot';
 import { TC } from '../tc';
+import { FullSpot } from '../executor/full_spot';
 
 export
 interface Params {
