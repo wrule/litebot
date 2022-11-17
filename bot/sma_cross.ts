@@ -21,7 +21,7 @@ extends TC {
 
 export
 class SMACross
-extends Bot<TC, Signal, Params> {
+extends Bot<TC, Params, Signal> {
   public constructor(private readonly executor: FullSpot, params: Params) {
     super({ params });
   }
