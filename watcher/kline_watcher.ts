@@ -35,4 +35,22 @@ class KLineWatcher {
       }, interval);
     }
   }
+
+  public async RunBot(
+    exchange: Exchange,
+    symbol: string,
+    timeframe: string,
+    bot: Bot<any, any, any>,
+    interval = 1000,
+  ) {
+    console.log('initialize data for the robot...');
+    await this.Fetch(exchange, symbol, timeframe, bot.length(), bot);
+    console.log('monitor the market...');
+    this.Start(exchange, symbol, timeframe, (kline) => {
+      if (kline[0]?.time > bot.SignalQueue[bot.SignalQueue.length - 1]?.time) {
+        bot.Update(kline[0]);
+        console.log(kline[9]);
+      }
+    }, interval);
+  }
 }
