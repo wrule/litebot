@@ -1,12 +1,7 @@
 import tulind from 'tulind';
 import { Bot } from '.';
+import { FullSpot } from '../executor/full_spot';
 import { TC } from '../tc';
-
-export
-interface Executor {
-  BuyAll: (price: number) => void;
-  SellAll: (price: number) => void;
-}
 
 export
 interface Signal
@@ -27,7 +22,7 @@ interface Params {
 export
 class SMACross
 extends Bot<TC, Signal, Params> {
-  public constructor(private readonly executor: Executor, params: Params) {
+  public constructor(private readonly executor: FullSpot, params: Params) {
     super({ params });
   }
 
