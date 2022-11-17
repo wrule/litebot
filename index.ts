@@ -14,7 +14,7 @@ async function main() {
   console.log('初始化机器人...');
   await watcher.Fetch(exchange, 'ETH/USDT', '1m', bot.length(), bot);
   console.log('监控市场...');
-  watcher.Start(exchange, 'ETH/USDT', '1m', 1, (kline) => {
+  watcher.Start(exchange, 'ETH/USDT', '1m', (kline) => {
     if (kline[0]?.time > bot.SignalQueue[bot.SignalQueue.length - 1]?.time) {
       console.log(moment(new Date(kline[0].time)).format('YYYY-MM-DD HH:mm:ss'))
       bot.Update(kline[0]);
