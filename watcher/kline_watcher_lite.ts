@@ -26,25 +26,22 @@ class KLineWatcherLite {
     return kline;
   }
 
-  private async get_server_time(exchange: Exchange) {
-    try {
-      const start_time = Number(new Date());
-      const server_time = await exchange.fetchTime();
-      const request_time = Number(new Date()) - start_time;
-      if (request_time > 5000) throw 'request time is greater than 5000 milliseconds';
-      return server_time + request_time;
-    } catch (e) {
-      console.log(e);
-    }
-    return -1;
+  private interval = 1000;
+  private kline_interval = 1000;
+  private active_mode = true;
+
+  private get smart_interval() {
+    if (this.active_mode) return this.interval;
+    const current_time = Number(new Date());
+    const next_time = current_time - current_time % this.kline_interval + this.kline_interval;
+    return next_time - current_time - 10 * 1e3;
   }
 
-  public async Start(
+  private async Start(
     exchange: Exchange,
     symbol: string,
     timeframe: string,
     callback: (kline: OHLCV[]) => void,
-    interval = 1000,
   ) {
     try {
       callback(await this.Fetch(exchange, symbol, timeframe, 1));
@@ -52,8 +49,8 @@ class KLineWatcherLite {
       console.log(e);
     } finally {
       setTimeout(() => {
-        this.Start(exchange, symbol, timeframe, callback, interval);
-      }, interval);
+        this.Start(exchange, symbol, timeframe, callback);
+      }, this.smart_interval);
     }
   }
 
@@ -64,14 +61,17 @@ class KLineWatcherLite {
     bot: Bot<any, any, any>,
     interval = 1000,
   ) {
+    this.interval = interval;
+    this.kline_interval = TimeFrameToMS(timeframe);
     console.log('initialize data for the robot...');
     await this.Fetch(exchange, symbol, timeframe, bot.length(), bot);
     console.log('monitor the market...');
     this.Start(exchange, symbol, timeframe, (kline) => {
       if (kline[0]?.time > bot.SignalQueue[bot.SignalQueue.length - 1]?.time) {
+        this.active_mode = false;
         bot.Update(kline[0]);
         console.log(kline[0]);
       }
-    }, interval);
+    });
   }
 }
