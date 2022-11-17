@@ -3,7 +3,7 @@ import { Bot } from '../bot';
 import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
 
 export
-class KLineWatcher {
+class KLineWatcherLite {
   public async Fetch(
     exchange: Exchange,
     symbol: string,
