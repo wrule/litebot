@@ -26,6 +26,19 @@ class KLineWatcherLite {
     return kline;
   }
 
+  private async get_server_time(exchange: Exchange) {
+    try {
+      const start_time = Number(new Date());
+      const server_time = await exchange.fetchTime();
+      const request_time = Number(new Date()) - start_time;
+      if (request_time > 5000) throw 'request time is greater than 5000 milliseconds';
+      return server_time + request_time;
+    } catch (e) {
+      console.log(e);
+    }
+    return -1;
+  }
+
   public async Start(
     exchange: Exchange,
     symbol: string,
