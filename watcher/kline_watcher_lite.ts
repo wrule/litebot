@@ -2,7 +2,6 @@ import { Exchange } from 'ccxt';
 import { Bot } from '../bot';
 import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
 
-
 export
 function TimeFrameToMS(timeframe: string) {
   const result = /^(\d+)(m|h)$/.exec(timeframe);
