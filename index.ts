@@ -6,7 +6,7 @@ import { KLineWatcher } from './watcher/kline_watcher';
 
 async function main() {
   const exchange = new binance({ });
-  console.log('加载市场...');
+  console.log('loading market...');
   await exchange.loadMarkets();
   const executor = new SimpleSpot(100, 0.001);
   const bot = new SMACross(executor, { fast_period: 9, slow_period: 44 });
