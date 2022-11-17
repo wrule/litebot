@@ -1,7 +1,13 @@
-import tulind from 'tulind';
+import { sma } from '../tulind_wrapper';
 import { Bot } from '.';
 import { FullSpot } from '../executor/full_spot';
 import { TC } from '../tc';
+
+export
+interface Params {
+  fast_period: number;
+  slow_period: number;
+}
 
 export
 interface Signal
@@ -14,25 +20,10 @@ extends TC {
 }
 
 export
-interface Params {
-  fast_period: number;
-  slow_period: number;
-}
-
-export
 class SMACross
 extends Bot<TC, Signal, Params> {
   public constructor(private readonly executor: FullSpot, params: Params) {
     super({ params });
-  }
-
-  private sma(source: number[], size: number) {
-    let result!: number[];
-    tulind.indicators.sma.indicator([source], [size], (error: any, data: any) => {
-      if (error) throw error;
-      result = Array(tulind.indicators.sma.start([size])).fill(NaN).concat(data[0]);
-    });
-    return result;
   }
 
   public ReadyLength() {
@@ -42,8 +33,8 @@ extends Bot<TC, Signal, Params> {
   protected next(tcs: TC[], signal_queue: Signal[] = []): Signal[] {
     const result = signal_queue.concat(tcs as Signal[]);
     const close = result.map((item) => item.close);
-    const fast_line = this.sma(close, this.config.params.fast_period);
-    const slow_line = this.sma(close, this.config.params.slow_period);
+    const fast_line = sma(close, this.config.params.fast_period);
+    const slow_line = sma(close, this.config.params.slow_period);
     result.forEach((last, index) => {
       last.sma_fast = fast_line[index];
       last.sma_slow = slow_line[index];
