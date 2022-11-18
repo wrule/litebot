@@ -68,7 +68,6 @@ class KLineWatcherLite {
     await this.Fetch(exchange, symbol, timeframe, bot.length(), bot);
     console.log('monitor the market...');
     this.start(exchange, symbol, timeframe, (kline) => {
-      console.log(kline[0].time, kline[0].close);
       if (kline[0]?.time > bot.SignalQueue[bot.SignalQueue.length - 1]?.time) {
         this.active_mode = false;
         bot.Update(kline[0]);
