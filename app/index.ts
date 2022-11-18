@@ -26,4 +26,6 @@ abstract class App {
     console.log(this.params_command_line_view(params));
     console.log(this.params_view(params));
   }
+
+  public abstract Run(): void;
 }
