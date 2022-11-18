@@ -1,15 +1,43 @@
+#!/usr/bin/env node
 import { binance } from 'ccxt';
 import { SMACross } from './bot/sma_cross';
 import { SimpleSpot } from './executor/simple_spot';
 import { KLineWatcherLite } from './watcher/kline_watcher_lite';
+import yargs from 'yargs/yargs';
+import { hideBin }  from 'yargs/helpers';
+
+function params_view(params: any) {
+  const cp = { ...params };
+  delete cp['_'];
+  delete cp['$0'];
+  return cp;
+}
+
+function params_command_line_view(params: any) {
+  const cp = { ...params };
+  delete cp['_'];
+  const script_name = cp['$0'];
+  delete cp['$0'];
+  return `./${script_name} ${Object.entries(cp).map(([key, value]) => `--${key} ${value}`).join(' ')}`;
+}
 
 async function main() {
+  let params = {
+    symbol: 'ETH/USDT',
+    timeframe: '1m',
+    fast_period: 10,
+    slow_period: 40,
+    interval: 0,
+  };
+  params = { ...params, ...(yargs(hideBin(process.argv)).argv) };
+  console.log(params_command_line_view(params));
+  console.log(params_view(params));
   const exchange = new binance({ });
   console.log('loading market...');
   await exchange.loadMarkets();
   const executor = new SimpleSpot(100, 0.001);
-  const bot = new SMACross(executor, { fast_period: 9, slow_period: 44 });
-  new KLineWatcherLite().RunBot(exchange, 'ETH/USDT', '1m', bot, 0);
+  const bot = new SMACross(executor, params);
+  new KLineWatcherLite().RunBot(exchange, params.symbol, params.timeframe, bot, params.interval);
 }
 
 main();
