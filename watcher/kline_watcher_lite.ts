@@ -33,10 +33,10 @@ class KLineWatcherLite {
     if (this.active_mode) return this.interval;
     const current_time = Number(new Date());
     const next_time = current_time - current_time % this.kline_interval + this.kline_interval;
-    return next_time - current_time - 10 * 1e3;
+    return next_time - current_time - 20 * 1e3;
   }
 
-  private async Start(
+  private async start(
     exchange: Exchange,
     symbol: string,
     timeframe: string,
@@ -49,7 +49,7 @@ class KLineWatcherLite {
       console.log(e);
     } finally {
       setTimeout(() => {
-        this.Start(exchange, symbol, timeframe, callback);
+        this.start(exchange, symbol, timeframe, callback);
       }, this.smart_interval);
     }
   }
@@ -67,7 +67,7 @@ class KLineWatcherLite {
     console.log('initialize data for the robot...');
     await this.Fetch(exchange, symbol, timeframe, bot.length(), bot);
     console.log('monitor the market...');
-    this.Start(exchange, symbol, timeframe, (kline) => {
+    this.start(exchange, symbol, timeframe, (kline) => {
       console.log(kline[0].time, kline[0].close);
       if (kline[0]?.time > bot.SignalQueue[bot.SignalQueue.length - 1]?.time) {
         this.active_mode = false;
