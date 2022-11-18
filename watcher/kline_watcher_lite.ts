@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { Exchange } from 'ccxt';
 import { Bot } from '../bot';
 import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
@@ -68,6 +69,7 @@ class KLineWatcherLite {
     await this.Fetch(exchange, symbol, timeframe, bot.length(), bot);
     console.log('monitor the market...');
     this.start(exchange, symbol, timeframe, (kline) => {
+      console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
       if (kline[0]?.time > bot.SignalQueue[bot.SignalQueue.length - 1]?.time) {
         this.active_mode = false;
         bot.Update(kline[0]);
