@@ -9,7 +9,7 @@ async function main() {
   await exchange.loadMarkets();
   const executor = new SimpleSpot(100, 0.001);
   const bot = new SMACross(executor, { fast_period: 9, slow_period: 44 });
-  new KLineWatcherLite().RunBot(exchange, 'ETH/USDT', '1m', bot);
+  new KLineWatcherLite().RunBot(exchange, 'ETH/USDT', '1m', bot, 0);
 }
 
 main();
