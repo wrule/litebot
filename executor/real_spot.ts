@@ -1,5 +1,5 @@
-import { Exchange, Order } from 'ccxt';
 import moment from 'moment';
+import { Exchange, Order } from 'ccxt';
 import { Notifier } from '../notifier';
 
 export
