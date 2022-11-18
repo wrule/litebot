@@ -6,6 +6,14 @@ import { KLineWatcherLite } from './watcher/kline_watcher_lite';
 import yargs from 'yargs/yargs';
 import { hideBin }  from 'yargs/helpers';
 
+function params_command_line_view(params: any) {
+  const cp = { ...params };
+  delete cp['_'];
+  const script_name = cp['$0'];
+  delete cp['$0'];
+  return `./${script_name} ${Object.entries(cp).map(([key, value]) => `--${key} ${value}`).join(' ')}`;
+}
+
 function params_view(params: any) {
   const cp = { ...params };
   delete cp['_'];
@@ -13,12 +21,10 @@ function params_view(params: any) {
   return cp;
 }
 
-function params_command_line_view(params: any) {
-  const cp = { ...params };
-  delete cp['_'];
-  const script_name = cp['$0'];
-  delete cp['$0'];
-  return `./${script_name} ${Object.entries(cp).map(([key, value]) => `--${key} ${value}`).join(' ')}`;
+function fill_params(params: any) {
+  Object.entries(yargs(hideBin(process.argv)).argv).forEach(([key, value]) => params[key] = value);
+  console.log(params_command_line_view(params));
+  console.log(params_view(params));
 }
 
 async function main() {
@@ -29,9 +35,7 @@ async function main() {
     slow_period: 40,
     interval: 0,
   };
-  params = { ...params, ...(yargs(hideBin(process.argv)).argv) };
-  console.log(params_command_line_view(params));
-  console.log(params_view(params));
+  fill_params(params);
   const exchange = new binance({ });
   console.log('loading market...');
   await exchange.loadMarkets();
