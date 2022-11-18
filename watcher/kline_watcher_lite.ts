@@ -33,7 +33,7 @@ class KLineWatcherLite {
     if (this.active_mode) return this.interval;
     const current_time = Number(new Date());
     const next_time = current_time - current_time % this.kline_interval + this.kline_interval;
-    return next_time - current_time - 20 * 1e3;
+    return next_time - current_time - 15 * 1e3;
   }
 
   private async start(
