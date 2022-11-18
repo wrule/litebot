@@ -23,7 +23,7 @@ function params_view(params: any) {
 
 function fill_params(params: any) {
   Object.entries(yargs(hideBin(process.argv)).argv).forEach(([key, value]) => {
-    if (params[key] == null) throw `unknown parameter ${key}`;
+    if (key !== '_' && key !== '$0' && params[key] == null) throw `unknown param ${key}`;
     params[key] = value;
   });
   console.log(params_command_line_view(params));
