@@ -10,7 +10,7 @@ async function main() {
   const exchange = new binance({ ...secret, enableRateLimit: true });
   console.log('加载市场...');
   await exchange.loadMarkets();
-  const spot = new RealSpot({ exchange, symbol: 'UNI/USDT', init_funds: 15, init_assets: 0, notifier });
+  const spot = new RealSpot({ exchange, symbol: 'UNI/USDT', funds: 15, assets: 0, notifier });
   console.log('发起买交易...');
   await spot.BuyAll(5);
   console.log('发起卖交易...');

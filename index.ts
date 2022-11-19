@@ -12,8 +12,8 @@ async function main() {
     exchange, notifier,
     name: '测试',
     symbol: 'BTC/USDT',
-    init_funds: 15,
-    init_assets: 0,
+    funds: 15,
+    assets: 0,
   });
   await spot.BuyAll(1);
   await spot.SellAll(1);
