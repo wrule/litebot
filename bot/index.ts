@@ -13,7 +13,7 @@ abstract class Bot<T extends TC, Params, Signal extends T> {
   public Update(tc: T, enable = true) {
     this.signal_queue = this.next([tc], this.signal_queue);
     enable && this.exec(this.signal_queue[this.signal_queue.length - 1]);
-    this.signal_queue.splice(0, this.signal_queue.length - this.length() + 1);
+    this.signal_queue.splice(0, this.signal_queue.length - this.length());
   }
 
   public BackTestingSimulation(tcs: T[]) {
