@@ -1,44 +1,45 @@
-import { sma } from '../tulind_wrapper';
+import { stoch_rsi } from '../tulind_wrapper';
 import { Bot } from '.';
 import { TC } from '../tc';
 import { FullSpot } from '../executor/full_spot';
 
 export
 interface Params {
-  fast_period: number;
-  slow_period: number;
+  rsi_period: number,
+  stoch_period: number,
+  k_period: number,
+  d_period: number,
 }
 
 export
 interface Signal
 extends TC {
-  sma_fast: number;
-  sma_slow: number;
+  k: number;
+  d: number;
   diff: number;
   buy: boolean;
   sell: boolean;
 }
 
 export
-class SMACross
+class StochRSICross
 extends Bot<TC, Params, Signal> {
   public constructor(private readonly executor: FullSpot, params: Params) {
     super(params);
   }
 
   public length() {
-    return this.params.slow_period + 1;
+    return 100;
   }
 
   protected next(tcs: TC[], signal_queue: Signal[] = []): Signal[] {
     const result = signal_queue.concat(tcs as Signal[]);
     const close = result.map((item) => item.close);
-    const fast_line = sma(close, this.params.fast_period);
-    const slow_line = sma(close, this.params.slow_period);
+    const { k, d, diff } = stoch_rsi(close, this.params);
     result.forEach((last, index) => {
-      last.sma_fast = fast_line[index];
-      last.sma_slow = slow_line[index];
-      last.diff = last.sma_fast - last.sma_slow;
+      last.k = k[index];
+      last.d = d[index];
+      last.diff = diff[index];
       last.buy = result[index - 1]?.diff <= 0 && last.diff > 0;
       last.sell = result[index - 1]?.diff >= 0 && last.diff < 0;
     });
