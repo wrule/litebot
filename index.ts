@@ -5,16 +5,17 @@ import { DingTalk } from './notifier/dingtalk';
 const secret = require('./.secret.json');
 
 async function main() {
-  const exchange = new binance(secret.exchange);
   const notifier = new DingTalk(secret.notifier);
+  const exchange = new binance(secret.exchange);
+  await exchange.loadMarkets();
   const spot = new RealSpot({
     exchange, notifier,
     name: '测试',
     symbol: 'BTC/USDT',
-    init_funds: 15,
-    init_assets: 0,
+    init_funds: 0,
+    init_assets: 0.0009,
   });
-  spot.BuyAll(1);
+  spot.SellAll(1);
 }
 
 main();

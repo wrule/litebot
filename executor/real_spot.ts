@@ -58,7 +58,7 @@ class RealSpot {
       );
       const order_time = `${(Number(new Date()) - request_time) / 1000}s`;
       const in_amount = order.cost;
-      const out_amount = order.amount - (this.config.symbol.startsWith(order.fee.currency) ? order.fee.cost : 0);
+      const out_amount = order.amount - (this.config.symbol.startsWith(order.fee?.currency) ? order.fee.cost : 0);
       this.funds -= in_amount;
       this.assets += out_amount;
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time));
@@ -78,7 +78,7 @@ class RealSpot {
       );
       const order_time = `${(Number(new Date()) - request_time) / 1000}s`;
       const in_amount = order.amount;
-      const out_amount = order.cost - (this.config.symbol.endsWith(order.fee.currency) ? order.fee.cost : 0);
+      const out_amount = order.cost - (this.config.symbol.endsWith(order.fee?.currency) ? order.fee.cost : 0);
       this.assets -= in_amount;
       this.funds += out_amount;
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time));
