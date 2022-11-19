@@ -17,6 +17,10 @@ async function main() {
   });
   await spot.BuyAll(1);
   await spot.SellAll(1);
+  await spot.BuyAll(1);
+  await spot.SellAll(1);
+  await spot.BuyAll(1);
+  await spot.SellAll(1);
 }
 
 main();
