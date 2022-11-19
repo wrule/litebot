@@ -31,10 +31,10 @@ class RealSpot {
     }, null ,2);
   }
 
-  private build_error_message(side: string) {
+  private build_error_message(side?: string) {
     return JSON.stringify({
-      time: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       name: this.config.name,
+      time: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       symbol: this.config.symbol, side,
       message: 'an error occurred, please check the log',
     }, null, 2);
