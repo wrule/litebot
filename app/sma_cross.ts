@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import { binance } from 'ccxt';
 import { SMACross } from '../bot/sma_cross';
-import { SimpleSpot } from '../executor/simple_spot';
 import { KLineWatcherLite } from '../watcher/kline_watcher_lite';
 import { fill_params } from '.';
 import { DingTalk } from '../notifier/dingtalk';
