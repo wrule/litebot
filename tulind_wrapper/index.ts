@@ -37,3 +37,17 @@ function stoch(high: number[], low: number[], close: number[], options: {
   });
   return { k, d, diff };
 }
+
+export
+function stoch_rsi(source: number[], options: {
+  rsi_period: number,
+  stoch_period: number,
+  k_period: number,
+  d_period: number,
+}) {
+  const rsi_result = rsi(source, options.rsi_period);
+  const start = rsi_result.findIndex((item) => !isNaN(item));
+  rsi_result.splice(0, start);
+  const result = stoch(rsi_result, rsi_result, rsi_result, options);
+  return { k: Array(start).concat(result.k), d: Array(start).concat(result.d), diff: Array(start).concat(result.diff) };
+}
