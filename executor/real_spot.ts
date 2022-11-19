@@ -8,12 +8,12 @@ class RealSpot {
     name?: string,
     exchange: Exchange,
     symbol: string,
-    init_funds: number,
-    init_assets?: number,
+    funds: number,
+    assets?: number,
     notifier?: Notifier,
   }) {
-    this.funds = this.config.init_funds;
-    this.assets = this.config.init_assets || 0;
+    this.funds = this.config.funds;
+    this.assets = this.config.assets || 0;
   }
 
   private funds = 0;
