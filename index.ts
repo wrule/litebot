@@ -1,23 +1,21 @@
-#!/usr/bin/env node
 import { binance } from 'ccxt';
-import { SMACross } from './bot/sma_cross';
-import { SimpleSpot } from './executor/simple_spot';
-import { KLineWatcherLite } from './watcher/kline_watcher_lite';
-import { fill_params } from './app';
+import { RealSpot } from './executor/real_spot';
+import { DingTalk } from './notifier/dingtalk';
 
-(async () => {
-  const params = {
-    symbol: 'ETH/USDT',
-    timeframe: '1m',
-    fast_period: 10,
-    slow_period: 40,
-    interval: 0,
-  };
-  fill_params(params);
-  const exchange = new binance({ });
-  console.log('loading market...');
-  await exchange.loadMarkets();
-  const executor = new SimpleSpot(100, 0.001);
-  const bot = new SMACross(executor, params);
-  new KLineWatcherLite().RunBot(exchange, params.symbol, params.timeframe, bot, params.interval);
-})();
+const dingtalk = require('./.dingtalk.json');
+const secret = require('./.secret.json');
+
+async function main() {
+  const exchange = new binance(secret);
+  const notifier = new DingTalk(dingtalk);
+  const spot = new RealSpot({
+    exchange, notifier,
+    name: '测试',
+    symbol: 'BTC/USDT',
+    init_funds: 15,
+    init_assets: 0,
+  });
+  spot.BuyAll(1);
+}
+
+main();
