@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+import { binance } from 'ccxt';
+import { KLineWatcherLite } from '../watcher/kline_watcher_lite';
+import { fill_params } from '.';
+import { DingTalk } from '../notifier/dingtalk';
+import { RealSpot } from '../executor/real_spot';
+import { StochRSICross } from '../bot/stoch_rsi_cross';
+
+const secret = require('../.secret.json');
+
+(async () => {
+  const params = {
+    name: '红眼',
+    symbol: 'ETH/USDT',
+    timeframe: '1m',
+    rsi_period: 2,
+    stoch_period: 3,
+    k_period: 4,
+    d_period: 5,
+    interval: 0,
+    funds: 15,
+    assets: 0,
+  };
+  fill_params(params);
+  const notifier = new DingTalk(secret.notifier);
+  const exchange = new binance(secret.exchange);
+  console.log('loading market...');
+  await exchange.loadMarkets();
+  const executor = new RealSpot({ exchange, notifier, ...params });
+  const bot = new StochRSICross(executor, params);
+  new KLineWatcherLite().RunBot({ exchange, bot, ...params });
+})();
