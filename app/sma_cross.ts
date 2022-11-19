@@ -27,5 +27,5 @@ const secret = require('../.secret.json');
   await exchange.loadMarkets();
   const executor = new RealSpot({ exchange, notifier, ...params });
   const bot = new SMACross(executor, params);
-  new KLineWatcherLite().RunBot(exchange, params.symbol, params.timeframe, bot, params.interval);
+  new KLineWatcherLite().RunBot({ exchange, bot, ...params });
 })();

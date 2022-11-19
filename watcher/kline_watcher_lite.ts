@@ -55,24 +55,24 @@ class KLineWatcherLite {
     }
   }
 
-  public async RunBot(
+  public async RunBot(config: {
     exchange: Exchange,
+    bot: Bot<any, any, any>,
     symbol: string,
     timeframe: string,
-    bot: Bot<any, any, any>,
-    interval = 1000,
-  ) {
+    interval: number,
+  }) {
     this.active_mode = true;
-    this.interval = interval;
-    this.kline_interval = TimeFrameToMS(timeframe);
+    this.interval = config.interval;
+    this.kline_interval = TimeFrameToMS(config.timeframe);
     console.log('initialize data for the robot...');
-    await this.Fetch(exchange, symbol, timeframe, bot.length(), bot);
+    await this.Fetch(config.exchange, config.symbol, config.timeframe, config.bot.length(), config.bot);
     console.log('monitor the market...');
-    this.start(exchange, symbol, timeframe, (kline) => {
+    this.start(config.exchange, config.symbol, config.timeframe, (kline) => {
       console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
-      if (kline[0]?.time > bot.SignalQueue[bot.SignalQueue.length - 1]?.time) {
+      if (kline[0]?.time > config.bot.SignalQueue[config.bot.SignalQueue.length - 1]?.time) {
         this.active_mode = false;
-        bot.Update(kline[0]);
+        config.bot.Update(kline[0]);
         console.log(kline[0]);
       }
     });
