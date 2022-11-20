@@ -7,7 +7,7 @@ export
 function TimeFrameToMS(timeframe: string) {
   const result = /^(\d+)(m|h)$/.exec(timeframe);
   if (result == null) throw 'unknown timeframe';
-  return Number(result[1]) * (result[2] == 'm' ? 60 * 1e3 : 60 * 1e6);
+  return Number(result[1]) * (result[2] == 'm' ? 60 * 1e3 : 60 * 60 * 1e3);
 }
 
 export
