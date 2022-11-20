@@ -29,7 +29,7 @@ extends Bot<TC, Params, Signal> {
   }
 
   public length() {
-    return 100;
+    return 1e3;
   }
 
   protected next(tcs: TC[], signal_queue: Signal[] = []): Signal[] {
