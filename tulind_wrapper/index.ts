@@ -49,7 +49,7 @@ function stoch_rsi(source: number[], options: {
   const start = rsi_result.findIndex((item) => !isNaN(item));
   rsi_result.splice(0, start);
   const result = stoch(rsi_result, rsi_result, rsi_result, options);
-  return { k: Array(start).concat(result.k), d: Array(start).concat(result.d), diff: Array(start).concat(result.diff) };
+  return { k: Array(start).fill(NaN).concat(result.k), d: Array(start).fill(NaN).concat(result.d), diff: Array(start).fill(NaN).concat(result.diff) };
 }
 
 export
