@@ -1,4 +1,4 @@
-import { stoch_rsi } from '../tulind_wrapper';
+import { stoch_rsi, stoch_rsi_start } from '../tulind_wrapper';
 import { Bot } from '.';
 import { TC } from '../tc';
 import { FullSpot } from '../executor/full_spot';
@@ -29,7 +29,7 @@ extends Bot<TC, Params, Signal> {
   }
 
   public length() {
-    return 1e3;
+    return stoch_rsi_start(this.params) + 2;
   }
 
   protected next(tcs: TC[], signal_queue: Signal[] = []): Signal[] {

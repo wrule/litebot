@@ -51,3 +51,15 @@ function stoch_rsi(source: number[], options: {
   const result = stoch(rsi_result, rsi_result, rsi_result, options);
   return { k: Array(start).concat(result.k), d: Array(start).concat(result.d), diff: Array(start).concat(result.diff) };
 }
+
+export
+function stoch_rsi_start(options: {
+  rsi_period: number,
+  stoch_period: number,
+  k_period: number,
+  d_period: number,
+}) {
+  const rsi_start = tulind.indicators.rsi.start([options.rsi_period]);
+  const stoch_start = tulind.indicators.stoch.start([options.stoch_period, options.k_period, options.d_period]);
+  return rsi_start + stoch_start;
+}
