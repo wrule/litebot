@@ -65,8 +65,8 @@ function stoch_rsi(source: number[], options: {
     },
   );
   const fill_num = source.length - k.length;
-  k = Array(fill_num).fill(NaN).concat(k),
-  d = Array(fill_num).fill(NaN).concat(d),
+  k = Array(fill_num).fill(NaN).concat(k);
+  d = Array(fill_num).fill(NaN).concat(d);
   const diff = k.map((item, index) => item - d[index]);
   return { k, d, diff };
 }
