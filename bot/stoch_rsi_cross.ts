@@ -29,7 +29,7 @@ extends Bot<TC, Params, Signal> {
   }
 
   public length() {
-    return stoch_rsi_start(this.params) + 2;
+    return (stoch_rsi_start(this.params) + 2) * 4;
   }
 
   protected next(tcs: TC[], signal_queue: Signal[] = []): Signal[] {
