@@ -1,9 +1,9 @@
 import { DingTalk } from '../notifier/dingtalk';
 
-const config = require('../.dingtalk.json');
+const config = require('../.secret.json');
 
 function main() {
-  const notifier = new DingTalk(config);
+  const notifier = new DingTalk(config.notifier);
   notifier.SendMessage('你好，世界');
 }
 
