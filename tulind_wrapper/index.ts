@@ -6,6 +6,7 @@ function sma(source: number[], period: number) {
   tulind.indicators.sma.indicator([source], [period], (error: any, data: any) => {
     if (error) throw error;
     result = Array(tulind.indicators.sma.start([period])).fill(NaN).concat(data[0]);
+    result.splice(0, result.length - source.length);
   });
   return result;
 }
