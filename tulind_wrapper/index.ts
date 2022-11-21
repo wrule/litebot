@@ -49,11 +49,26 @@ function stoch_rsi(source: number[], options: {
   k_period: number,
   d_period: number,
 }) {
-  const rsi_result = rsi(source, options.rsi_period);
-  const start = rsi_result.findIndex((item) => !isNaN(item));
-  rsi_result.splice(0, start);
-  const result = stoch(rsi_result, rsi_result, rsi_result, options);
-  return { k: Array(start).fill(NaN).concat(result.k), d: Array(start).fill(NaN).concat(result.d), diff: Array(start).fill(NaN).concat(result.diff) };
+  let rsi: number[] = [];
+  tulind.indicators.rsi.indicator([source], [options.rsi_period], (error: any, data: any) => {
+    if (error) throw error;
+    rsi = data[0];
+  });
+  let k: number[] = [], d: number[] = [];
+  tulind.indicators.stoch.indicator(
+    [rsi, rsi, rsi],
+    [options.stoch_period, options.k_period, options.d_period],
+    (error: any, data: any) => {
+      if (error) throw error;
+      k = data[0];
+      d = data[1];
+    },
+  );
+  const fill_num = source.length - k.length;
+  k = Array(fill_num).fill(NaN).concat(k),
+  d = Array(fill_num).fill(NaN).concat(d),
+  const diff = k.map((item, index) => item - d[index]);
+  return { k, d, diff };
 }
 
 export
