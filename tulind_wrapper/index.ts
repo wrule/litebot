@@ -35,8 +35,10 @@ function stoch(high: number[], low: number[], close: number[], options: {
     if (error) throw error;
     k = Array(start).fill(NaN).concat(data[0]);
     d = Array(start).fill(NaN).concat(data[1]);
-    diff = k.map((item, index) => item - d[index]);
   });
+  k.splice(0, k.length - high.length);
+  d.splice(0, d.length - high.length);
+  diff = k.map((item, index) => item - d[index]);
   return { k, d, diff };
 }
 
