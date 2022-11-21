@@ -5,7 +5,6 @@ import { fill_params } from '.';
 import { DingTalk } from '../notifier/dingtalk';
 import { RealSpot } from '../executor/real_spot';
 import { StochRSICross } from '../bot/stoch_rsi_cross';
-import { SimpleSpot } from '../executor/simple_spot';
 
 const secret = require('../.secret.json');
 
@@ -27,8 +26,7 @@ const secret = require('../.secret.json');
   const exchange = new binance(secret.exchange);
   console.log('loading market...');
   await exchange.loadMarkets();
-  // const executor = new RealSpot({ exchange, notifier, ...params });
-  const executor = new SimpleSpot();
+  const executor = new RealSpot({ exchange, notifier, ...params });
   const bot = new StochRSICross(executor, params);
   new KLineWatcherLite().RunBot({ exchange, bot, ...params });
 })();
