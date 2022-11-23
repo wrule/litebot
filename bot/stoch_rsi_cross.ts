@@ -31,8 +31,8 @@ extends Bot<TC, Params, Signal> {
   public length() {
     return (rsi_start(this.params.rsi_period) + stoch_start({
       k_slowing_period: this.params.k_period,
-      k_period: this.params.d_period,
-      d_period: this.params.stoch_period,
+      k_period: this.params.stoch_period,
+      d_period: this.params.d_period,
     }) + 2) * 4;
   }
 
@@ -42,8 +42,8 @@ extends Bot<TC, Params, Signal> {
     const rsi_result = rsi(close, this.params.rsi_period);
     const { stoch_k, stoch_d } = stoch(rsi_result, rsi_result, rsi_result, {
       k_slowing_period: this.params.k_period,
-      k_period: this.params.d_period,
-      d_period: this.params.stoch_period,
+      k_period: this.params.stoch_period,
+      d_period: this.params.d_period,
     }, close.length);
     result.forEach((last, index) => {
       last.k = stoch_k[index];
