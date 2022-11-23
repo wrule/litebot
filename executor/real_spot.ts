@@ -50,8 +50,7 @@ class RealSpot {
   }
 
   private async get_balance(currency: string) {
-    const balances = await this.config.exchange.fetchFreeBalance();
-    return balances[currency];
+    return (await this.config.exchange.fetchFreeBalance())[currency];
   }
 
   public async BuyAll(price: number, sync = false) {
