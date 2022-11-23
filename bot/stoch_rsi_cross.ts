@@ -29,11 +29,11 @@ extends Bot<TC, Params, Signal> {
   }
 
   public length() {
-    return ((rsi_start(this.params.rsi_period) + stoch_start({
+    return (rsi_start(this.params.rsi_period) + stoch_start({
       k_slowing_period: this.params.k_period,
       k_period: this.params.d_period,
       d_period: this.params.stoch_period,
-    })) + 2) * 4;
+    }) + 2) * 4;
   }
 
   protected next(tcs: TC[], signal_queue: Signal[] = []): Signal[] {
