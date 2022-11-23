@@ -11,21 +11,21 @@ async function main() {
   console.log('加载市场...');
   await exchange.loadMarkets();
 
-  // const balances = await exchange.fetchBalance();
+  const balances = await exchange.fetchFreeBalance();
   // Object.entries(balances.total).forEach(([key, value]) => {
   //   if (value > 0) console.log(key, value);
   // });
-  // fs.writeFileSync('output.json', JSON.stringify(balances, null, 2));
+  fs.writeFileSync('output.json', JSON.stringify(balances, null, 2));
 
   // console.log('加载市场...');
   // await exchange.loadMarkets();
-  const spot = new RealSpot({
-    exchange, notifier,
-    symbol: 'ETH/BUSD',
-    funds: 0,
-  });
-  console.log('交易');
-  await spot.BuyAll(1200);
+  // const spot = new RealSpot({
+  //   exchange, notifier,
+  //   symbol: 'ETH/BUSD',
+  //   funds: 0,
+  // });
+  // console.log('交易');
+  // await spot.BuyAll(1200);
 }
 
 main();
