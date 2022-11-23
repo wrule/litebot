@@ -70,11 +70,12 @@ class KLineWatcherLite {
     console.log('monitor the market...');
     this.start(config.exchange, config.symbol, config.timeframe, (kline) => {
       const last = kline[kline.length - 1];
-      console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'), last.close);
       if (last?.time > config.bot.SignalQueue[config.bot.SignalQueue.length - 1]?.time) {
         this.active_mode = false;
         config.bot.Update(last);
         console.log(last);
+      } else {
+        console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'), last.close);
       }
     });
   }
