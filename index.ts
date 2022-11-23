@@ -7,7 +7,7 @@ const data = require('./data/ETH_USDT-30m.json');
 async function main() {
   const kline = ArrayToKLine(data);
   const close = kline.map((item) => item.close);
-  const rsi_result = rsi(close, { period: 13 });
+  const rsi_result = rsi(close, 13);
   const stoch_result = stoch(rsi_result, rsi_result, rsi_result, {
     k_period: 45,
     k_slowing_period: 32,
