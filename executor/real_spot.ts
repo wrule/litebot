@@ -81,9 +81,11 @@ class RealSpot {
     }
   }
 
-  public async SellAll(price: number) {
+  public async SellAll(price: number, sync = false) {
     try {
       const request_time = Number(new Date());
+      const real_assets = sync ? await this.get_balance(this.assets_name) : this.assets;
+      this.assets = this.assets > real_assets ? real_assets : this.assets;
       const order = await this.config.exchange.createMarketOrder(
         this.config.symbol,
         'sell',
@@ -96,6 +98,7 @@ class RealSpot {
       this.funds += out_amount;
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time));
     } catch (e) {
+      if (!sync && e instanceof ccxt.ExchangeError) this.SellAll(price, true);
       console.log(e);
       this.send_message(this.build_error_message(e, 'sell'));
     }
