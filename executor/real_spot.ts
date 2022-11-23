@@ -15,10 +15,14 @@ class RealSpot {
   }) {
     this.funds = this.config.funds;
     this.assets = this.config.assets || 0;
+    this.funds_name = this.config.symbol.split('/')[1];
+    this.assets_name = this.config.symbol.split('/')[0];
   }
 
   private funds = 0;
   private assets = 0;
+  private funds_name = '';
+  private assets_name = '';
 
   private build_transaction_message(order: Order, price: number, in_out: [number, number], order_time: string) {
     return JSON.stringify({
@@ -53,7 +57,7 @@ class RealSpot {
   public async BuyAll(price: number, sync = false) {
     try {
       const request_time = Number(new Date());
-      const real_funds = sync ? await this.get_balance('') : this.funds;
+      const real_funds = sync ? await this.get_balance(this.funds_name) : this.funds;
       this.funds = this.funds > real_funds ? real_funds : this.funds;
       const order = await this.config.exchange.createMarketOrder(
         this.config.symbol,
