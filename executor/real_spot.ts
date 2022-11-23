@@ -49,7 +49,7 @@ class RealSpot {
     this.config.notifier?.SendMessage(message);
   }
 
-  public async get_balance(currency: string) {
+  private async get_balance(currency: string) {
     const balances = await this.config.exchange.fetchFreeBalance();
     return balances[currency];
   }
