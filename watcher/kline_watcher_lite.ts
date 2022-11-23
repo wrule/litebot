@@ -69,11 +69,12 @@ class KLineWatcherLite {
     await this.Fetch(config.exchange, config.symbol, config.timeframe, config.bot.length(), config.bot);
     console.log('monitor the market...');
     this.start(config.exchange, config.symbol, config.timeframe, (kline) => {
-      console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
-      if (kline[0]?.time > config.bot.SignalQueue[config.bot.SignalQueue.length - 1]?.time) {
+      const last = kline[kline.length - 1];
+      console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'), last.close);
+      if (last?.time > config.bot.SignalQueue[config.bot.SignalQueue.length - 1]?.time) {
         this.active_mode = false;
-        config.bot.Update(kline[0]);
-        console.log(kline[0]);
+        config.bot.Update(last);
+        console.log(last);
       }
     });
   }
