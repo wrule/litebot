@@ -50,9 +50,11 @@ class RealSpot {
     return balances[currency];
   }
 
-  public async BuyAll(price: number) {
+  public async BuyAll(price: number, sync = false) {
     try {
       const request_time = Number(new Date());
+      const real_funds = sync ? await this.get_balance('') : this.funds;
+      this.funds = this.funds > real_funds ? real_funds : this.funds;
       const order = await this.config.exchange.createMarketOrder(
         this.config.symbol,
         'buy',
