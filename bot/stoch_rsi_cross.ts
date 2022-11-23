@@ -36,7 +36,7 @@ extends Bot<TC, Params, Signal> {
     }) + 2) * 4;
   }
 
-  protected next(tcs: TC[], signal_queue: Signal[] = []): Signal[] {
+  protected next(tcs: TC[], signal_queue: Signal[] = []) {
     const result = signal_queue.concat(tcs as Signal[]);
     const close = result.map((item) => item.close);
     const rsi_result = rsi(close, this.params.rsi_period);
