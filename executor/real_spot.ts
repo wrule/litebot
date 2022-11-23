@@ -31,12 +31,12 @@ class RealSpot {
     }, null ,2);
   }
 
-  private build_error_message(side?: string) {
+  private build_error_message(error: any, side?: string) {
     return JSON.stringify({
       name: this.config.name,
       time: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       symbol: this.config.symbol, side,
-      message: 'an error occurred, please check the log',
+      message: error?.toString() || 'an error occurred, please check the log',
     }, null, 2);
   }
 
@@ -64,7 +64,7 @@ class RealSpot {
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time));
     } catch (e) {
       console.log(e);
-      this.send_message(this.build_error_message('buy'));
+      this.send_message(this.build_error_message(e, 'buy'));
     }
   }
 
@@ -84,7 +84,7 @@ class RealSpot {
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time));
     } catch (e) {
       console.log(e);
-      this.send_message(this.build_error_message('sell'));
+      this.send_message(this.build_error_message(e, 'sell'));
     }
   }
 }
