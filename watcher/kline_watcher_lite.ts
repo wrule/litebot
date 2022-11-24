@@ -17,7 +17,7 @@ class KLineWatcherLite {
     symbol: string,
     timeframe: string,
     limit: number,
-    bot?: Bot<any, any, any>,
+    bot?: Bot<any, any>,
   ) {
     const data = await exchange.fetchOHLCV(symbol, timeframe, undefined, limit + 1);
     data.splice(data.length - 1, 1);
@@ -57,7 +57,7 @@ class KLineWatcherLite {
 
   public async RunBot(config: {
     exchange: Exchange,
-    bot: Bot<any, any, any>,
+    bot: Bot<any, any>,
     symbol: string,
     timeframe: string,
     interval: number,
@@ -66,11 +66,11 @@ class KLineWatcherLite {
     this.interval = config.interval;
     this.kline_interval = TimeFrameToMS(config.timeframe);
     console.log('initialize data for the robot...');
-    await this.Fetch(config.exchange, config.symbol, config.timeframe, config.bot.length(), config.bot);
+    await this.Fetch(config.exchange, config.symbol, config.timeframe, config.bot.length, config.bot);
     console.log('monitor the market...');
     this.start(config.exchange, config.symbol, config.timeframe, (kline) => {
       const last = kline[kline.length - 1];
-      if (last?.time > config.bot.SignalQueue[config.bot.SignalQueue.length - 1]?.time) {
+      if (last?.time > config.bot.last?.time) {
         this.active_mode = false;
         config.bot.Update(last);
         console.log(last);
