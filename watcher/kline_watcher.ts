@@ -9,7 +9,7 @@ class KLineWatcher {
     symbol: string,
     timeframe: string,
     limit: number,
-    bot?: Bot<any, any, any>,
+    bot?: Bot<any, any>,
   ) {
     const data = await exchange.fetchOHLCV(symbol, timeframe, undefined, limit + 1);
     data.splice(data.length - 1, 1);
@@ -40,14 +40,14 @@ class KLineWatcher {
     exchange: Exchange,
     symbol: string,
     timeframe: string,
-    bot: Bot<any, any, any>,
+    bot: Bot<any, any>,
     interval = 1000,
   ) {
     console.log('initialize data for the robot...');
-    await this.Fetch(exchange, symbol, timeframe, bot.length(), bot);
+    await this.Fetch(exchange, symbol, timeframe, bot.length, bot);
     console.log('monitor the market...');
     this.Start(exchange, symbol, timeframe, (kline) => {
-      if (kline[0]?.time > bot.SignalQueue[bot.SignalQueue.length - 1]?.time) {
+      if (kline[0]?.time > bot.last?.time) {
         bot.Update(kline[0]);
         console.log(kline[0]);
       }
