@@ -7,6 +7,7 @@ abstract class Bot<T extends TC, Signal extends T> {
   public Update(tc: T, enable = true) {
     this.signal_queue = this.next([tc], this.signal_queue);
     enable && this.exec(this.last as Signal);
+    enable && console.log(JSON.stringify(this.last, null, 2));
     this.signal_queue.splice(0, this.signal_queue.length - this.length + 1);
   }
 
