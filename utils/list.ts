@@ -1,6 +1,7 @@
+#!/usr/bin/env node
 import { binance } from 'ccxt';
 
-const secret = require('./.secret.json');
+const secret = require('../.secret.json');
 
 async function main() {
   const exchange = new binance(secret.exchange);
