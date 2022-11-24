@@ -73,7 +73,6 @@ class KLineWatcher {
       if (last?.time > config.bot.last?.time) {
         this.active_mode = false;
         config.bot.Update(last);
-        console.log(last);
       } else {
         console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
       }
