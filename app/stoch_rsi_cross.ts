@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { binance } from 'ccxt';
-import { KLineWatcherLite } from '../watcher/kline_watcher_lite';
+import { KLineWatcher } from '../watcher/kline_watcher';
 import { fill_params } from '.';
 import { DingTalk } from '../notifier/dingtalk';
 import { RealSpot } from '../executor/real_spot';
@@ -30,5 +30,5 @@ const secret = require('../.secret.json');
   const executor = new RealSpot({ exchange, notifier, ...params });
   // const executor = new SimpleSpot();
   const bot = new StochRSICross(executor, params);
-  new KLineWatcherLite().RunBot({ exchange, bot, ...params });
+  new KLineWatcher().RunBot({ exchange, bot, ...params });
 })();
