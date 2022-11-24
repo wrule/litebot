@@ -4,14 +4,6 @@ import { Bot } from '.';
 import { FullSpot } from '../executor/full_spot';
 
 export
-interface Params {
-  rsi_period: number,
-  stoch_period: number,
-  k_period: number,
-  d_period: number,
-}
-
-export
 interface Signal
 extends TC {
   k: number;
@@ -23,12 +15,20 @@ extends TC {
 
 export
 class StochRSICross
-extends Bot<TC, Params, Signal> {
-  public constructor(private readonly executor: FullSpot, params: Params) {
-    super(params);
+extends Bot<TC, Signal> {
+  public constructor(
+    private readonly executor: FullSpot,
+    private readonly params: {
+      rsi_period: number,
+      stoch_period: number,
+      k_period: number,
+      d_period: number,
+    },
+  ) {
+    super();
   }
 
-  public length() {
+  public get length() {
     return (rsi_start(this.params.rsi_period) + stoch_start({
       k_slowing_period: this.params.k_period,
       k_period: this.params.stoch_period,
