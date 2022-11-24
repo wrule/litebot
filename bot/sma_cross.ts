@@ -4,12 +4,6 @@ import { TC } from '../tc';
 import { FullSpot } from '../executor/full_spot';
 
 export
-interface Params {
-  fast_period: number;
-  slow_period: number;
-}
-
-export
 interface Signal
 extends TC {
   sma_fast: number;
@@ -21,12 +15,18 @@ extends TC {
 
 export
 class SMACross
-extends Bot<TC, Params, Signal> {
-  public constructor(private readonly executor: FullSpot, params: Params) {
-    super(params);
+extends Bot<TC, Signal> {
+  public constructor(
+    private readonly executor: FullSpot,
+    private readonly params: {
+      fast_period: number;
+      slow_period: number;
+    },
+  ) {
+    super();
   }
 
-  public length() {
+  public get length() {
     return this.params.slow_period + 1;
   }
 
