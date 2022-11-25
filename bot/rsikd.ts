@@ -1,4 +1,4 @@
-import { sma, _align } from 'tulind-wrapper';
+import { rsi, sma, _align } from 'tulind-wrapper';
 import { TC } from '../tc';
 import { Bot } from '.';
 import { FullSpot } from '../executor/full_spot';
@@ -14,13 +14,12 @@ extends TC {
 }
 
 export
-class StochRSICross
+class RSIKD
 extends Bot<TC, Signal> {
   public constructor(
     private readonly executor: FullSpot,
     private readonly params: {
-      fast_period: number,
-      slow_period: number,
+      rsi_period: number,
       k_period: number,
       d_period: number,
     },
@@ -35,10 +34,8 @@ extends Bot<TC, Signal> {
   protected next(tcs: TC[], signal_queue: Signal[] = []) {
     const result = signal_queue.concat(tcs as Signal[]);
     const close = result.map((item) => item.close);
-    const slow_line = sma(close, this.params.slow_period);
-    const fast_line = sma(close, this.params.fast_period, slow_line.length);
-    const diff = fast_line.map((item, index) => item - slow_line[index]);
-    const k = sma(diff, this.params.k_period);
+    const rsi_result = rsi(close, this.params.rsi_period);
+    const k = sma(rsi_result, this.params.k_period);
     const d = sma(k, this.params.d_period);
     _align([k, d], close.length);
     result.forEach((last, index) => {
