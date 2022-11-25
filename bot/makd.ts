@@ -1,4 +1,4 @@
-import { sma } from 'tulind-wrapper';
+import { sma, _align } from 'tulind-wrapper';
 import { TC } from '../tc';
 import { Bot } from '.';
 import { FullSpot } from '../executor/full_spot';
@@ -38,8 +38,9 @@ extends Bot<TC, Signal> {
     const slow_line = sma(close, this.params.slow_period);
     const fast_line = sma(close, this.params.fast_period, slow_line.length);
     const diff = fast_line.map((item, index) => item - slow_line[index]);
-    const k = sma(diff, this.params.k_period, close.length);
-    const d = sma(k, this.params.d_period, close.length);
+    const k = sma(diff, this.params.k_period);
+    const d = sma(k, this.params.d_period);
+    _align([k, d], close.length);
     result.forEach((last, index) => {
       last.k = k[index];
       last.d = d[index];
