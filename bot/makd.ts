@@ -14,7 +14,7 @@ extends TC {
 }
 
 export
-class StochRSICross
+class MAKD
 extends Bot<TC, Signal> {
   public constructor(
     private readonly executor: FullSpot,
