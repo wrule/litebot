@@ -105,5 +105,5 @@ dist
 
 data
 user
-.secret.json
 output.json
+.secret.json
