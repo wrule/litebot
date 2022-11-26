@@ -1,5 +1,5 @@
 {
-  "name": "carbon",
+  "name": "litebot",
   "version": "0.1.0",
   "main": "dist/index.js",
   "scripts": {
@@ -7,7 +7,7 @@
     "watch": "tsc --watch",
     "dev": "node dist/index.js"
   },
-  "repository": "https://github.com/wrule/carbon.git",
+  "repository": "https://github.com/wrule/litebot.git",
   "license": "MIT",
   "private": false,
   "dependencies": {
