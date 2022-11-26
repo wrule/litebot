@@ -29,6 +29,7 @@ function ArrayToKLine(array: number[][], check_interval: boolean | number = true
   let count = 1;
   array.forEach((item, index) => {
     const curr = ArrayToOHLCV(item);
+    kline.push(curr);
     if (check_interval && index > 0) {
       const prev = kline[index - 1];
       const interval = curr.time - prev.time;
@@ -39,7 +40,6 @@ function ArrayToKLine(array: number[][], check_interval: boolean | number = true
         console.log('');
       }
     }
-    kline.push(curr);
   });
   return kline;
 }
