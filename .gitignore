@@ -105,5 +105,6 @@ dist
 
 *.js
 /data
-output.json
+/user
 .secret.json
+output.json
