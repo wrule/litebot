@@ -1,5 +1,5 @@
 export
-class SimpleSpot {
+class SpotSimpleTest {
   public constructor(
     private readonly init_funds = 100,
     private readonly fee = 0.001,
