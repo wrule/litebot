@@ -32,7 +32,7 @@ function ArrayToKLine(array: number[][], check_interval: boolean | number = true
     if (check_interval && index > 0) {
       const prev = kline[index - 1];
       const interval = curr.time - prev.time;
-      if (interval !== check_interval) {
+      if (interval !== (check_interval === true ? kline[1].time - kline[0].time : check_interval)) {
         console.log(count++, 'interval error:');
         console.log(moment(new Date(prev.time)).format('YYYY-MM-DD HH:mm:ss'), prev.time);
         console.log(moment(new Date(curr.time)).format('YYYY-MM-DD HH:mm:ss'), curr.time);
