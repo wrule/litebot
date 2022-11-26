@@ -2,6 +2,11 @@ import { sma } from 'tulind-wrapper';
 import { Bot } from '.';
 import { TC } from '../tc';
 import { FullSpot } from '../executor/full_spot';
+import { fill_params } from '../app';
+import { DingTalk } from '../notifier/dingtalk';
+import { binance } from 'ccxt';
+import { RealSpot } from '../executor/real_spot';
+import { KLineWatcher } from '../watcher/kline_watcher';
 
 export
 interface Signal
@@ -53,3 +58,25 @@ extends Bot<TC, Signal> {
     }
   }
 }
+
+(async () => {
+  const secret = require('../.secret.json');
+  const params = {
+    name: 'v2-test',
+    symbol: 'ETH/USDT',
+    timeframe: '1m',
+    fast_period: 10,
+    slow_period: 40,
+    interval: 0,
+    funds: 15,
+    assets: 0,
+  };
+  fill_params(params);
+  const notifier = new DingTalk(secret.notifier);
+  const exchange = new binance(secret.exchange);
+  console.log('loading market...');
+  await exchange.loadMarkets();
+  const executor = new RealSpot({ exchange, notifier, ...params });
+  const bot = new SMACross(executor, params);
+  new KLineWatcher().RunBot({ exchange, bot, ...params });
+})();
