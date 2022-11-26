@@ -2,13 +2,13 @@ import { TC } from '../tc';
 
 export
 abstract class Bot<T extends TC, Signal extends T> {
-  private signal_queue: Signal[] = [];
+  private queue: Signal[] = [];
 
   public Update(tc: T, enable = true) {
-    this.signal_queue = this.next([tc], this.signal_queue);
+    this.queue = this.next([tc], this.queue);
     enable && this.exec(this.last as Signal);
     enable && console.log(JSON.stringify(this.last, null, 2));
-    this.signal_queue.splice(0, this.signal_queue.length - this.length + 1);
+    this.queue.splice(0, this.queue.length - this.length + 1);
   }
 
   public BackTestingSimulation(tcs: T[]) {
@@ -20,12 +20,12 @@ abstract class Bot<T extends TC, Signal extends T> {
   }
 
   public get last(): Signal | undefined {
-    return this.signal_queue[this.signal_queue.length - 1];
+    return this.queue[this.queue.length - 1];
   }
 
   public abstract length: number;
 
-  protected abstract next(tc: T[], signal_queue: Signal[]): Signal[];
+  protected abstract next(tc: T[], queue: Signal[]): Signal[];
 
   protected abstract exec(signal: Signal): void;
 }
