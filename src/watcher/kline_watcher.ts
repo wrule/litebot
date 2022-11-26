@@ -4,7 +4,7 @@ import { Bot } from '../bot';
 import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
 
 export
-function TimeFrameToMS(timeframe: string) {
+function TimeframeToMS(timeframe: string) {
   const result = /^(\d+)(m|h)$/.exec(timeframe);
   if (result == null) throw 'unknown timeframe';
   return Number(result[1]) * (result[2] == 'm' ? 60 * 1e3 : 60 * 60 * 1e3);
@@ -64,7 +64,7 @@ class KLineWatcher {
   }) {
     this.active_mode = true;
     this.interval = config.interval;
-    this.kline_interval = TimeFrameToMS(config.timeframe);
+    this.kline_interval = TimeframeToMS(config.timeframe);
     console.log('initialize data for the robot...');
     await this.Fetch(config.exchange, config.symbol, config.timeframe, config.bot.length, config.bot);
     console.log('monitor the market...');
