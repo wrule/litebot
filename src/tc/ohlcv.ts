@@ -24,12 +24,12 @@ function ArrayToOHLCV(array: number[]): OHLCV {
 }
 
 export
-function ArrayToKLine(array: number[][], check_interval: number): OHLCV[] {
+function ArrayToKLine(array: number[][], check_interval: boolean | number = true): OHLCV[] {
   const kline: OHLCV[] = [];
   let count = 1;
   array.forEach((item, index) => {
     const curr = ArrayToOHLCV(item);
-    if (index > 0) {
+    if (check_interval && index > 0) {
       const prev = kline[index - 1];
       const interval = curr.time - prev.time;
       if (interval !== check_interval) {
