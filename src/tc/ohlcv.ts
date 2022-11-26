@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { TC } from '.';
 
 export
@@ -31,7 +32,13 @@ function ArrayToKLine(array: number[][], check_interval: number): OHLCV[] {
       const prev = kline[index - 1];
       const interval = curr.time - prev.time;
       if (interval !== check_interval) {
-        console.log('error');
+        console.log(
+          curr.time - prev.time,
+          moment(new Date(prev.time)).format('YYYY-MM-DD HH:mm:ss'),
+          prev.time,
+          moment(new Date(curr.time)).format('YYYY-MM-DD HH:mm:ss'),
+          curr.time,
+        );
       }
     }
     kline.push(curr);
