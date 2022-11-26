@@ -30,7 +30,7 @@ function ArrayToKLine(array: number[][]): OHLCV[] {
     const ohlcv = ArrayToOHLCV(item);
     const new_interval = ohlcv.time - kline[index - 1]?.time;
     if (index > 1 && new_interval !== interval)
-      throw `error ${ohlcv.time}`;
+      console.log(`error ${ohlcv.time}`);
     interval = new_interval;
     kline.push(ohlcv);
   });
