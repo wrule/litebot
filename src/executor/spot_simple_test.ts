@@ -20,13 +20,11 @@ class SpotSimpleTest {
   public BuyAll(price: number) {
     this.assets += (this.funds / price) * this.fee_multiplier;
     this.funds = 0;
-    console.log('BuyAll');
   }
 
   public SellAll(price: number) {
     this.funds += (this.assets * price) * this.fee_multiplier;
     this.assets = 0;
-    console.log('SellAll');
   }
 
   public Valuation(price: number) {
