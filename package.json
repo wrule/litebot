@@ -1,11 +1,11 @@
 {
   "name": "carbon",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "dev": "node index.js"
+    "dev": "node dist/index.js"
   },
   "repository": "https://github.com/wrule/carbon.git",
   "license": "MIT",
