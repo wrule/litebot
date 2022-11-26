@@ -6,9 +6,9 @@ export
 class DingTalk
 implements Notifier {
   public constructor(private readonly config: {
-    access_token: string;
+    accessToken: string;
     secret: string;
-    at_mobiles?: string[];
+    atMobiles?: string[];
   }) { }
 
   public async SendMessage(message: string) {
@@ -29,13 +29,13 @@ implements Notifier {
             content: message,
           },
           at: {
-            atMobiles: this.config.at_mobiles,
+            atMobiles: this.config.atMobiles,
             isAtAll: false,
           },
         },
         {
           params: {
-            access_token: this.config.access_token,
+            access_token: this.config.accessToken,
             timestamp,
             sign,
           },
