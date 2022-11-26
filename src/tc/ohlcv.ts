@@ -32,13 +32,13 @@ function ArrayToKLine(array: number[][], check_interval: number): OHLCV[] {
       const prev = kline[index - 1];
       const interval = curr.time - prev.time;
       if (interval !== check_interval) {
-        console.log(
-          curr.time - prev.time,
-          moment(new Date(prev.time)).format('YYYY-MM-DD HH:mm:ss'),
-          prev.time,
-          moment(new Date(curr.time)).format('YYYY-MM-DD HH:mm:ss'),
-          curr.time,
-        );
+        const start = moment(new Date(prev.time));
+        const end = moment(new Date(curr.time));
+        const diff = end.diff(start);
+        console.log('');
+        console.log('interval error:');
+        console.log(start.format('YYYY-MM-DD HH:mm:ss'), prev.time);
+        console.log(end.format('YYYY-MM-DD HH:mm:ss'), curr.time);
       }
     }
     kline.push(curr);
