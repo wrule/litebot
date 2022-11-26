@@ -2,10 +2,14 @@ import fs from 'fs';
 import { binance } from 'ccxt';
 import { RealSpot } from './executor/real_spot';
 import { DingTalk } from './notifier/dingtalk';
+import { SMACross } from './bot/sma_cross';
+import { SimpleSpot } from './executor/simple_spot';
 
 const secret = require('./.secret.json');
 
 async function main() {
+  const a = new SMACross(new SimpleSpot(), { fast_period: 4, slow_period: 99 });
+  return;
   const exchange = new binance(secret.exchange);
   const notifier = new DingTalk(secret.notifier);
   console.log('加载市场...');
