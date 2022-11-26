@@ -26,6 +26,7 @@ function ArrayToOHLCV(array: number[]): OHLCV {
 export
 function ArrayToKLine(array: number[][], check_interval: number): OHLCV[] {
   const kline: OHLCV[] = [];
+  let count = 1;
   array.forEach((item, index) => {
     const curr = ArrayToOHLCV(item);
     if (index > 0) {
@@ -34,7 +35,7 @@ function ArrayToKLine(array: number[][], check_interval: number): OHLCV[] {
       if (interval !== check_interval) {
         const start = moment(new Date(prev.time));
         const end = moment(new Date(curr.time));
-        console.log('interval error:');
+        console.log(count++, 'interval error:');
         console.log(start.format('YYYY-MM-DD HH:mm:ss.SSS'), prev.time);
         console.log(end.format('YYYY-MM-DD HH:mm:ss.SSS'), curr.time);
         console.log('');
