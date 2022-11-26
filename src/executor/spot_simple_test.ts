@@ -8,22 +8,18 @@ class SpotSimpleTest {
   private funds = 0;
   private assets = 0;
 
-  private get fee_multiplier() {
-    return 1 - this.fee;
-  }
-
   public Reset() {
     this.funds = this.init_funds;
     this.assets = 0;
   }
 
   public BuyAll(price: number) {
-    this.assets += (this.funds / price) * this.fee_multiplier;
+    this.assets += (this.funds / price) * (1 - this.fee);
     this.funds = 0;
   }
 
   public SellAll(price: number) {
-    this.funds += (this.assets * price) * this.fee_multiplier;
+    this.funds += (this.assets * price) * (1 - this.fee);
     this.assets = 0;
   }
 
