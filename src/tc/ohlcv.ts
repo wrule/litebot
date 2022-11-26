@@ -23,12 +23,17 @@ function ArrayToOHLCV(array: number[]): OHLCV {
 }
 
 export
-function ArrayToKLine(array: number[][], check_interval: boolean | number = true): OHLCV[] {
+function ArrayToKLine(array: number[][], check_interval: number): OHLCV[] {
   const kline: OHLCV[] = [];
   array.forEach((item, index) => {
     const curr = ArrayToOHLCV(item);
-    const prev = kline[index - 1];
-    const interval = curr.time - prev?.time;
+    if (index > 0) {
+      const prev = kline[index - 1];
+      const interval = curr.time - prev.time;
+      if (interval !== check_interval) {
+        console.log('error');
+      }
+    }
     kline.push(curr);
   });
   return kline;
