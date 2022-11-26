@@ -4,15 +4,15 @@ export
 abstract class Bot<T extends TC, Signal extends T> {
   private queue: Signal[] = [];
 
-  public Update(tc: T, enable = true) {
+  public Update(tc: T, enable = true, log = true) {
     this.queue = this.next([tc], this.queue);
     enable && this.exec(this.last as Signal);
-    enable && console.log(JSON.stringify(this.last, null, 2));
+    log && console.log(JSON.stringify(this.last, null, 2));
     this.queue.splice(0, this.queue.length - this.length + 1);
   }
 
   public BackTestingSimulation(tcs: T[]) {
-    tcs.forEach((tc) => this.Update(tc));
+    tcs.forEach((tc) => this.Update(tc, true, false));
   }
 
   public BackTestingBatch(tcs: T[]) {
