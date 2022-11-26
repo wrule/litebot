@@ -17,7 +17,7 @@ function params_view(params: any) {
 }
 
 export
-function fill_params(params: any) {
+function FillParams(params: any) {
   Object.entries(yargs(hideBin(process.argv)).argv).forEach(([key, value]) => {
     if (key !== '_' && key !== '$0' && params[key] == null) throw `unknown param ${key}`;
     params[key] = value;
