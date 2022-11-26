@@ -3,7 +3,9 @@ class SpotSimpleTest {
   public constructor(
     private readonly init_funds = 100,
     private readonly fee = 0.001,
-  ) { }
+  ) {
+    this.Reset();
+  }
 
   private funds = 0;
   private assets = 0;
