@@ -2,7 +2,7 @@ import fs from 'fs';
 import { binance } from 'ccxt';
 import { RealSpot } from './executor/real_spot';
 import { DingTalk } from './notifier/dingtalk';
-import { SMACross } from './bot/sma_cross';
+import { SMACross } from './user/sma_cross';
 import { SimpleSpot } from './executor/simple_spot';
 
 const secret = require('./.secret.json');
