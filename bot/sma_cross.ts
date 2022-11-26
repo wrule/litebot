@@ -60,6 +60,9 @@ extends Bot<TC, Signal> {
 }
 
 (async () => {
+  console.log(1);
+  if (require.main === module) return;
+  console.log(2);
   const secret = require('../.secret.json');
   const params = {
     name: 'v2-test',
