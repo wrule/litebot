@@ -9,3 +9,5 @@ export { TC } from './tc';
 export { OHLCV, ArrayToOHLCV, ArrayToKLine } from './tc/ohlcv';
 export { FillParams } from './utils/cl_params';
 export { KLineWatcher } from './watcher/kline_watcher';
+export * as ccxt from 'ccxt';
+export * as t from 'tulind-wrapper';
