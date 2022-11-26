@@ -3,7 +3,7 @@ import { sma } from 'tulind-wrapper';
 import { Bot } from '.';
 import { TC } from '../tc';
 import { FullSpot } from '../executor/full_spot';
-import { fill_params } from '../app';
+import { fill_params } from '../utils/cl_params';
 import { DingTalk } from '../notifier/dingtalk';
 import { binance } from 'ccxt';
 import { RealSpot } from '../executor/real_spot';

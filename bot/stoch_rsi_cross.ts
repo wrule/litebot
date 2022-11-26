@@ -3,7 +3,7 @@ import { rsi, stoch, rsi_start, stoch_start } from 'tulind-wrapper';
 import { TC } from '../tc';
 import { Bot } from '.';
 import { FullSpot } from '../executor/full_spot';
-import { fill_params } from '../app';
+import { fill_params } from '../utils/cl_params';
 import { DingTalk } from '../notifier/dingtalk';
 import { binance } from 'ccxt';
 import { RealSpot } from '../executor/real_spot';
