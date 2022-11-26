@@ -103,8 +103,7 @@ dist
 # TernJS port file
 .tern-port
 
-*.js
-/data
-/user
+data
+user
 .secret.json
 output.json
