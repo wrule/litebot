@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { sma } from 'tulind-wrapper';
 import { Bot } from '.';
 import { TC } from '../tc';
@@ -60,9 +61,7 @@ extends Bot<TC, Signal> {
 }
 
 (async () => {
-  console.log(1);
-  if (require.main === module) return;
-  console.log(2);
+  if (require.main !== module) return;
   const secret = require('../.secret.json');
   const params = {
     name: 'v2-test',
