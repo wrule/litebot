@@ -22,7 +22,7 @@ class KLineWatcher {
     const data = await exchange.fetchOHLCV(symbol, timeframe, undefined, limit + 1);
     data.splice(data.length - 1, 1);
     const kline = ArrayToKLine(data);
-    kline.forEach((ohlcv) => bot?.Update(ohlcv, false));
+    kline.forEach((ohlcv) => bot?.Update(ohlcv, false, false));
     return kline;
   }
 
