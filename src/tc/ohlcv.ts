@@ -26,8 +26,10 @@ export
 function ArrayToKLine(array: number[][], check_interval: boolean | number = true): OHLCV[] {
   const kline: OHLCV[] = [];
   array.forEach((item, index) => {
-    const ohlcv = ArrayToOHLCV(item);
-    kline.push(ohlcv);
+    const curr = ArrayToOHLCV(item);
+    const prev = kline[index - 1];
+    const interval = curr.time - prev?.time;
+    kline.push(curr);
   });
   return kline;
 }
