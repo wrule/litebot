@@ -32,8 +32,8 @@ extends Bot<TC, Signal> {
     return 1000;
   }
 
-  protected next(tcs: TC[], signal_queue: Signal[] = []) {
-    const result = signal_queue.concat(tcs as Signal[]);
+  protected next(tcs: TC[], queue: Signal[] = []) {
+    const result = queue.concat(tcs as Signal[]);
     const close = result.map((item) => item.close);
     const slow_line = sma(close, this.params.slow_period);
     const fast_line = sma(close, this.params.fast_period, slow_line.length);
