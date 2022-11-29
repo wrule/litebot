@@ -39,12 +39,14 @@ class SpotReal {
   }
 
   private build_error_message(error: any, side?: string) {
-    return JSON.stringify({
+    const message = {
       name: this.config.name,
       time: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       symbol: this.config.symbol, side,
       message: error?.toString() || 'an error occurred, please check the log',
-    }, null, 2);
+    };
+    console.log(message);
+    return JSON.stringify(message, null, 2);
   }
 
   private send_message(message: string) {
