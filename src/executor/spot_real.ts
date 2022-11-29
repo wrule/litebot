@@ -25,7 +25,7 @@ class SpotReal {
   private assets_name = '';
 
   private build_transaction_message(order: Order, price: number, in_out: [number, number], order_time: string) {
-    return JSON.stringify({
+    const message = {
       name: this.config.name,
       time: moment(new Date(order.timestamp)).format('YYYY-MM-DD HH:mm:ss'),
       symbol: order.symbol, side: order.side,
@@ -33,7 +33,9 @@ class SpotReal {
       expected_price: price, final_price: order.price, deviation: `${(order.price - price) / price * 100}%`,
       funds: this.funds, assets: this.assets,
       order_time,
-    }, null ,2);
+    };
+    console.log(message);
+    return JSON.stringify(message, null, 2);
   }
 
   private build_error_message(error: any, side?: string) {
