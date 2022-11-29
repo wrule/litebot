@@ -6,7 +6,7 @@ import { Notifier } from '../notifier';
 export
 class SpotReal {
   public constructor(private readonly config: {
-    name?: string,
+    name: string,
     exchange: Exchange,
     symbol: string,
     funds: number,
