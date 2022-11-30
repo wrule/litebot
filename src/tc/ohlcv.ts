@@ -46,7 +46,6 @@ function ArrayToKLine(array: number[][], check_interval: boolean | number = true
 
 export
 function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], log = true, true_probability = 0.5) {
-  const ot = Number(new Date());
   let missing_counter = 0;
   let overlap_counter = 0;
   let index2 = 0;
@@ -74,5 +73,4 @@ function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], log = true, true_probab
     }
   });
   log && console.log('counterfeit_rate', (missing_counter + overlap_counter) / kline1.length * 100, '%');
-  console.log(Number(new Date()) - ot);
 }
