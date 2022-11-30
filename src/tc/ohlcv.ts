@@ -48,22 +48,13 @@ export
 function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], default_high_first = false) {
   const ot = Number(new Date());
   let index2 = 0;
-  kline1.forEach((item, index) => {
-    const start = item.time;
-    const end = kline1[index + 1]?.time;
-    while (kline2[index2]?.time < start) index2++;
-    if (kline2[index2]?.time === start) {
-      while (kline2[index2]?.time < end) {
-        index2++;
-        if (kline2[index2].low <= item.low) {
-          item.high_first = false;
-          break;
-        }
-        if (kline2[index2].high >= item.high) {
-          item.high_first = true;
-          break;
-        }
-      }
+  kline1.forEach((item1, index) => {
+    while (kline2[index2]?.time < item1.time) index2++;
+    let high_time!: number, low_time!: number;
+    while (kline2[index2]?.time < kline1[index + 1]?.time) {
+      const item2 = kline2[index2++];
+      if (item2.low <= item1.low) low_time = low_time || item2.time;
+      if (item2.high >= item1.high) high_time = high_time || item2.time;
     }
   });
   console.log(Number(new Date()) - ot);
