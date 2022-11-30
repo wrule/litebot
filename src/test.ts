@@ -7,7 +7,8 @@ const kline2 = ArrayToKLine(data2, false);
 
 function main() {
   console.log('你好世界');
-  FillHighFirst(kline1, kline2);
+  FillHighFirst(kline1, kline2, 0.5, false);
+  console.log(kline1.every((item) => item.high_first != null));
 }
 
 main();
