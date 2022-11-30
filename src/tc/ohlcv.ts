@@ -8,6 +8,7 @@ extends TC {
   high: number;
   low: number;
   volume: number;
+  high_first?: number;
 }
 
 export
