@@ -48,11 +48,14 @@ export
 function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[]) {
   const ot = Number(new Date());
   let index2 = 0;
-  kline1.forEach((item) => {
+  kline1.forEach((item, index) => {
     const start = item.time;
+    const end = kline1[index + 1]?.time;
     while (kline2[index2]?.time < start) index2++;
     if (kline2[index2]?.time === start) {
-      // console.log('对齐了');
+      while (kline2[index2]?.time < end) {
+        index2++;
+      }
     }
   });
   console.log(Number(new Date()) - ot);
