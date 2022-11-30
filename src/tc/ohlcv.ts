@@ -53,10 +53,11 @@ function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], true_probability = 0.5,
   kline1.forEach((item1, index1) => {
     let high_time!: number, low_time!: number;
     while (kline2[index2]?.time < item1.time) index2++;
-    while (kline2[index2]?.time < kline1[index1 + 1]?.time) {
-      const item2 = kline2[index2++];
+    while (kline2[index2]?.time < (kline1[index1 + 1]?.time || Infinity)) {
+      const item2 = kline2[index2];
       if (item2.high >= item1.high) high_time = high_time || item2.time;
       if (item2.low <= item1.low) low_time = low_time || item2.time;
+      index2++;
     }
     if (high_time && low_time) {
       if (high_time < low_time) item1.high_first = true;
