@@ -62,10 +62,12 @@ function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], true_probability = 0.5,
       if (high_time < low_time) item1.high_first = true;
       if (high_time > low_time) item1.high_first = false;
       if (high_time === low_time) {
-        console.log(++overlap_counter, 'overlap', high_time, low_time);
+        log && console.log(++overlap_counter, 'overlap', high_time, low_time);
+        item1.high_first = Math.random() < true_probability;
       }
     } else {
-      console.log(++missing_counter, 'missing', high_time, low_time);
+      log && console.log(++missing_counter, 'missing', high_time, low_time);
+      item1.high_first = Math.random() < true_probability;
     }
   });
   console.log(Number(new Date()) - ot);
