@@ -47,11 +47,11 @@ function ArrayToKLine(array: number[][], check_interval: boolean | number = true
 export
 function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[]) {
   const ot = Number(new Date());
-  let index = 0;
+  let index2 = 0;
   kline1.forEach((item) => {
     const start = item.time;
-    while (kline2[index]?.time < start) index++;
-    if (kline2[index]?.time === start) {
+    while (kline2[index2]?.time < start) index2++;
+    if (kline2[index2]?.time === start) {
       // console.log('对齐了');
     }
   });
