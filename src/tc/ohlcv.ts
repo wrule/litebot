@@ -45,7 +45,7 @@ function ArrayToKLine(array: number[][], check_interval: boolean | number = true
 }
 
 export
-function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], default_high_first = false) {
+function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], true_probability = 0.5, log = true) {
   const ot = Number(new Date());
   let missing_counter = 0;
   let overlap_counter = 0;
