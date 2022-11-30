@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "dev": "node dist/index.js"
+    "dev": "node dist/test.js"
   },
   "repository": "https://github.com/wrule/litebot.git",
   "license": "MIT",
