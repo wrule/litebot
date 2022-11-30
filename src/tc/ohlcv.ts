@@ -53,8 +53,8 @@ function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], default_high_first = fa
     let high_time!: number, low_time!: number;
     while (kline2[index2]?.time < kline1[index1 + 1]?.time) {
       const item2 = kline2[index2++];
-      if (item2.low <= item1.low) low_time = low_time || item2.time;
       if (item2.high >= item1.high) high_time = high_time || item2.time;
+      if (item2.low <= item1.low) low_time = low_time || item2.time;
     }
   });
   console.log(Number(new Date()) - ot);
