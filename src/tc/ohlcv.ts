@@ -47,6 +47,8 @@ function ArrayToKLine(array: number[][], check_interval: boolean | number = true
 export
 function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], default_high_first = false) {
   const ot = Number(new Date());
+  let missing_counter = 0;
+  let overlap_counter = 0;
   let index2 = 0;
   kline1.forEach((item1, index1) => {
     while (kline2[index2]?.time < item1.time) index2++;
@@ -55,6 +57,15 @@ function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], default_high_first = fa
       const item2 = kline2[index2++];
       if (item2.high >= item1.high) high_time = high_time || item2.time;
       if (item2.low <= item1.low) low_time = low_time || item2.time;
+    }
+    if (high_time && low_time) {
+      if (high_time < low_time) item1.high_first = true;
+      if (high_time > low_time) item1.high_first = false;
+      if (high_time === low_time) {
+        console.log(++overlap_counter, 'overlap', high_time, low_time);
+      }
+    } else {
+      console.log(++missing_counter, 'missing', high_time, low_time);
     }
   });
   console.log(Number(new Date()) - ot);
