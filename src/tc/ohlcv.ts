@@ -62,13 +62,16 @@ function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], true_probability = 0.5,
       if (high_time < low_time) item1.high_first = true;
       if (high_time > low_time) item1.high_first = false;
       if (high_time === low_time) {
-        log && console.log(++overlap_counter, 'overlap', moment(high_time).format('YYYY-MM-DD HH:mm:ss'), high_time);
+        ++overlap_counter;
+        log && console.log(overlap_counter, 'overlap', moment(high_time).format('YYYY-MM-DD HH:mm:ss'), high_time);
         item1.high_first = Math.random() < true_probability;
       }
     } else {
-      log && console.log(++missing_counter, 'missing', moment(item1.time).format('YYYY-MM-DD HH:mm:ss'), item1.time);
+      ++missing_counter;
+      log && console.log(missing_counter, 'missing', moment(item1.time).format('YYYY-MM-DD HH:mm:ss'), item1.time);
       item1.high_first = Math.random() < true_probability;
     }
   });
+  log && console.log('counterfeit_rate', (missing_counter + overlap_counter) / kline1.length * 100, '%');
   console.log(Number(new Date()) - ot);
 }
