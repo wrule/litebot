@@ -63,12 +63,12 @@ function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], log = true, true_probab
       if (high_time < low_time) item1.high_first = true;
       if (high_time > low_time) item1.high_first = false;
       if (high_time === low_time) {
-        ++overlap_counter;
+        overlap_counter++;
         log && console.log(overlap_counter, 'overlap', moment(high_time).format('YYYY-MM-DD HH:mm:ss'), high_time);
         item1.high_first = Math.random() < true_probability;
       }
     } else {
-      ++missing_counter;
+      missing_counter++;
       log && console.log(missing_counter, 'missing', moment(item1.time).format('YYYY-MM-DD HH:mm:ss'), item1.time);
       item1.high_first = Math.random() < true_probability;
     }
