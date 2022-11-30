@@ -8,7 +8,7 @@ extends TC {
   high: number;
   low: number;
   volume: number;
-  high_first?: number;
+  high_first?: boolean;
 }
 
 export
@@ -55,6 +55,14 @@ function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[]) {
     if (kline2[index2]?.time === start) {
       while (kline2[index2]?.time < end) {
         index2++;
+        if (kline2[index2].low <= item.low) {
+          item.high_first = false;
+          break;
+        }
+        if (kline2[index2].high >= item.high) {
+          item.high_first = true;
+          break;
+        }
       }
     }
   });
