@@ -1,4 +1,5 @@
 import { ArrayToKLine, FillHighFirst } from './tc/ohlcv';
+import fs from 'fs';
 
 const data1 = require('../src/data/ETH_USDT-30m.json');
 const data2 = require('../src/data/ETH_USDT-1m.json');
@@ -9,6 +10,7 @@ function main() {
   console.log('你好世界');
   FillHighFirst(kline1, kline2);
   console.log(kline1.every((item) => item.high_first != null));
+  fs.writeFileSync('output.json', JSON.stringify(kline2, null, 2));
 }
 
 main();
