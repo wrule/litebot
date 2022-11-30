@@ -43,3 +43,8 @@ function ArrayToKLine(array: number[][], check_interval: boolean | number = true
   });
   return kline;
 }
+
+export
+function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[]) {
+  console.log(1234);
+}
