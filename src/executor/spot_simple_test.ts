@@ -18,7 +18,7 @@ class SpotSimpleTest {
   public BuyAll(price: number) {
     this.assets += (this.funds / price) * (1 - this.fee);
     this.funds = 0;
-    this.final_price = price;
+    this.final_price = this.final_price || price;
   }
 
   public SellAll(price: number) {
