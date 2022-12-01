@@ -85,6 +85,8 @@ class SpotReal {
   }
 
   public async SellAll(price: number, sync = false) {
+    const final_price = this.final_price;
+    this.final_price = NaN;
     try {
       const request_time = Number(new Date());
       const real_assets = sync ? await this.get_balance(this.assets_name) : this.assets;
@@ -101,7 +103,8 @@ class SpotReal {
       this.funds += out_amount;
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time));
     } catch (e) {
-      if (!sync && e instanceof ccxt.ExchangeError) this.SellAll(price, true);
+      if (!sync && e instanceof ccxt.ExchangeError) await this.SellAll(price, true);
+      this.final_price = final_price;
       console.log(e);
       this.send_message(this.build_error_message(e, 'sell'));
     }
