@@ -4,13 +4,6 @@ import { Bot } from '../bot';
 import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
 
 export
-function TimeframeToMS(timeframe: string) {
-  const result = /^(\d+)(m|h)$/.exec(timeframe);
-  if (result == null) throw 'unknown timeframe';
-  return Number(result[1]) * (result[2] == 'm' ? 60 * 1e3 : 60 * 60 * 1e3);
-}
-
-export
 class KLineWatcherRT {
   public async Fetch(
     exchange: Exchange,
@@ -27,8 +20,6 @@ class KLineWatcherRT {
   }
 
   private interval!: number;
-  private kline_interval!: number;
-  private active_mode!: boolean;
 
   private async start(
     exchange: Exchange,
@@ -37,7 +28,6 @@ class KLineWatcherRT {
     callback: (kline: OHLCV[]) => void,
   ) {
     try {
-      this.active_mode = true;
       callback(await this.Fetch(exchange, symbol, timeframe, 1));
     } catch (e) {
       console.log(e);
@@ -55,16 +45,13 @@ class KLineWatcherRT {
     timeframe: string,
     interval: number,
   }) {
-    this.active_mode = true;
     this.interval = config.interval;
-    this.kline_interval = TimeframeToMS(config.timeframe);
     console.log('initialize data for the robot...');
     await this.Fetch(config.exchange, config.symbol, config.timeframe, config.bot.length, config.bot);
     console.log('monitor the market...');
     this.start(config.exchange, config.symbol, config.timeframe, (kline) => {
       const last = kline[kline.length - 1];
       if (last?.time > config.bot.last?.time) {
-        this.active_mode = false;
         config.bot.Update(last);
       } else {
         console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
