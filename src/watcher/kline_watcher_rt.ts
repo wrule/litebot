@@ -30,13 +30,6 @@ class KLineWatcherRT {
   private kline_interval!: number;
   private active_mode!: boolean;
 
-  private get smart_interval() {
-    if (this.active_mode) return this.interval;
-    const current_time = Number(new Date());
-    const next_time = current_time - current_time % this.kline_interval + this.kline_interval;
-    return next_time - current_time - 8 * 1e3;
-  }
-
   private async start(
     exchange: Exchange,
     symbol: string,
@@ -51,7 +44,7 @@ class KLineWatcherRT {
     } finally {
       setTimeout(() => {
         this.start(exchange, symbol, timeframe, callback);
-      }, this.smart_interval);
+      }, this.interval);
     }
   }
 
