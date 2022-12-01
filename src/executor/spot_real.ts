@@ -79,7 +79,6 @@ class SpotReal {
       this.assets += out_amount;
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time));
     } catch (e) {
-      this.final_price = NaN;
       if (!sync && e instanceof ccxt.ExchangeError) this.BuyAll(price, true);
       console.log(e);
       this.send_message(this.build_error_message(e, 'buy'));
