@@ -8,7 +8,7 @@ extends TC {
   high: number;
   low: number;
   volume: number;
-  high_first?: boolean;
+  closed?: boolean;
 }
 
 export
@@ -45,37 +45,13 @@ function ArrayToKLine(array: number[][], check_interval: boolean | number = true
 }
 
 export
-function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], log = true, true_probability = 0.5) {
-  let missing_counter = 0;
-  let overlap_counter = 0;
-  let index2 = 0;
-  kline1.forEach((item1, index1) => {
-    let high_time!: number, low_time!: number;
-    while (kline2[index2]?.time < item1.time) index2++;
-    while (kline2[index2]?.time < (kline1[index1 + 1]?.time || Infinity)) {
-      const item2 = kline2[index2];
-      if (item2.high >= item1.high) high_time = high_time || item2.time;
-      if (item2.low <= item1.low) low_time = low_time || item2.time;
-      index2++;
-    }
-    if (high_time && low_time) {
-      if (high_time < low_time) item1.high_first = true;
-      if (high_time > low_time) item1.high_first = false;
-      if (high_time === low_time) {
-        overlap_counter++;
-        log && console.log(overlap_counter, 'overlap', moment(high_time).format('YYYY-MM-DD HH:mm:ss'), high_time);
-        item1.high_first = Math.random() < true_probability;
-      }
-    } else {
-      missing_counter++;
-      log && console.log(missing_counter, 'missing', moment(item1.time).format('YYYY-MM-DD HH:mm:ss'), item1.time);
-      item1.high_first = Math.random() < true_probability;
-    }
-  });
-  log && console.log('counterfeit_rate', (missing_counter + overlap_counter) / kline1.length * 100, '%');
-}
-
-export
 function ExpandKLine(kline: OHLCV[]) {
-  return [];
+  const result: OHLCV[] = [];
+  kline.forEach((item) => {
+    result.push({ ...item, close: item.open, closed: false });
+    result.push({ ...item, close: item.high, closed: false });
+    result.push({ ...item, close: item.low, closed: false });
+    result.push({ ...item, closed: true });
+  });
+  return result;
 }
