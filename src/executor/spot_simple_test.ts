@@ -9,6 +9,7 @@ class SpotSimpleTest {
 
   private funds = 0;
   private assets = 0;
+  private final_price = NaN;
 
   public Reset() {
     this.funds = this.init_funds;
@@ -18,11 +19,13 @@ class SpotSimpleTest {
   public BuyAll(price: number) {
     this.assets += (this.funds / price) * (1 - this.fee);
     this.funds = 0;
+    this.final_price = price;
   }
 
   public SellAll(price: number) {
     this.funds += (this.assets * price) * (1 - this.fee);
     this.assets = 0;
+    this.final_price = NaN;
   }
 
   public Valuation(price: number) {
@@ -31,5 +34,9 @@ class SpotSimpleTest {
 
   public ROI(price: number) {
     return (this.Valuation(price) - this.init_funds) / this.init_funds;
+  }
+
+  public Risk(price: number) {
+    return (price - this.final_price) / this.final_price;
   }
 }

@@ -1,6 +1,6 @@
 export
 interface SpotFull {
-  PositionPrice: number;
+  Risk(price: number): number;
   BuyAll(price: number): void;
   SellAll(price: number): void;
 }
