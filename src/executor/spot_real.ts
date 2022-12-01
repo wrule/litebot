@@ -71,6 +71,7 @@ class SpotReal {
           quoteOrderQty: this.config.exchange.costToPrecision(this.config.symbol, this.funds),
         },
       );
+      this.final_price = order.price;
       const order_time = `${(Number(new Date()) - request_time) / 1000}s`;
       const in_amount = order.cost;
       const out_amount = order.amount - (this.config.symbol.startsWith(order.fee?.currency) ? order.fee.cost : 0);
@@ -78,6 +79,7 @@ class SpotReal {
       this.assets += out_amount;
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time));
     } catch (e) {
+      this.final_price = NaN;
       if (!sync && e instanceof ccxt.ExchangeError) this.BuyAll(price, true);
       console.log(e);
       this.send_message(this.build_error_message(e, 'buy'));
