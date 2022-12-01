@@ -37,7 +37,7 @@ class KLineWatcherRT {
     callback: (kline: OHLCV[]) => void,
   ) {
     try {
-      callback(await this.Fetch(exchange, symbol, timeframe, 1));
+      callback(await this.FetchRT(exchange, symbol, timeframe, 2));
     } catch (e) {
       console.log(e);
     } finally {
