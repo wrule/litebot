@@ -8,7 +8,7 @@ extends TC {
   high: number;
   low: number;
   volume: number;
-  closed?: boolean;
+  unclosed?: boolean;
 }
 
 export
@@ -48,10 +48,10 @@ export
 function ExpandKLine(kline: OHLCV[]) {
   const result: OHLCV[] = [];
   kline.forEach((item) => {
-    result.push({ ...item, close: item.open, closed: false });
-    result.push({ ...item, close: item.high, closed: false });
-    result.push({ ...item, close: item.low, closed: false });
-    result.push({ ...item, closed: true });
+    result.push({ ...item, close: item.open, unclosed: true });
+    result.push({ ...item, close: item.high, unclosed: true });
+    result.push({ ...item, close: item.low, unclosed: true });
+    result.push({ ...item, unclosed: false });
   });
   return result;
 }
