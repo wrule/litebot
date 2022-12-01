@@ -106,4 +106,10 @@ class SpotReal {
       this.send_message(this.build_error_message(e, 'sell'));
     }
   }
+
+  private final_price = NaN;
+
+  public Risk(price: number) {
+    return (price - this.final_price) / this.final_price;
+  }
 }
