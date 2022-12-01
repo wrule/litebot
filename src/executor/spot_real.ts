@@ -103,8 +103,8 @@ class SpotReal {
       this.funds += out_amount;
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time));
     } catch (e) {
-      if (!sync && e instanceof ccxt.ExchangeError) await this.SellAll(price, true);
       this.final_price = final_price;
+      if (!sync && e instanceof ccxt.ExchangeError) this.SellAll(price, true);
       console.log(e);
       this.send_message(this.build_error_message(e, 'sell'));
     }
