@@ -19,6 +19,15 @@ class KLineWatcherRT {
     return kline;
   }
 
+  public async FetchRT(
+    exchange: Exchange,
+    symbol: string,
+    timeframe: string,
+    limit: number,
+  ) {
+    return ArrayToKLine(await exchange.fetchOHLCV(symbol, timeframe, undefined, limit + 1));
+  }
+
   private interval!: number;
 
   private async start(
