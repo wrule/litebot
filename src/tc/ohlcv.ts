@@ -74,3 +74,8 @@ function FillHighFirst(kline1: OHLCV[], kline2: OHLCV[], log = true, true_probab
   });
   log && console.log('counterfeit_rate', (missing_counter + overlap_counter) / kline1.length * 100, '%');
 }
+
+export
+function ExpandKLine(kline: OHLCV[]) {
+  return [];
+}
