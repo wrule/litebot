@@ -10,7 +10,8 @@ function main() {
   console.log('你好世界');
   FillHighFirst(kline1, kline2);
   console.log(kline1.every((item) => item.high_first != null));
-  fs.writeFileSync('output.json', JSON.stringify(kline2, null, 2));
+  fs.writeFileSync('output1.json', JSON.stringify(kline1, null, 2));
+  fs.writeFileSync('output2.json', JSON.stringify(kline2, null, 2));
 }
 
 main();
