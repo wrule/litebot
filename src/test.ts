@@ -1,14 +1,16 @@
-import { ArrayToKLine, ExpandKLine } from './tc/ohlcv';
-import fs from 'fs';
 
-const data1 = require('../src/data/ETH_USDT-30m.json');
-const data2 = require('../src/data/ETH_USDT-1m.json');
-const kline1 = ArrayToKLine(data1, false);
-const kline2 = ArrayToKLine(data2, false);
+import { ccxt, SpotSimpleTest } from '.';
+import { KLineWatcherRT } from './watcher/kline_watcher_rt';
+
+const secret = require('../.secret.json');
 
 function main() {
-  console.log('你好世界');
-  ExpandKLine(kline1, 0);
+  const exchange = new ccxt.binance(secret.exchange);
+  const watcher = new KLineWatcherRT();
+  watcher.start(exchange, 'ETH/USDT', '1m', (data) => {
+    const [hist, active] = data;
+    console.log(hist.close, active.close);
+  });
 }
 
 main();

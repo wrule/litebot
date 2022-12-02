@@ -28,7 +28,7 @@ class KLineWatcherRT {
 
   private interval!: number;
 
-  private async start(
+  public async start(
     exchange: Exchange,
     symbol: string,
     timeframe: string,
