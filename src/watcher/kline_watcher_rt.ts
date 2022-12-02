@@ -4,12 +4,7 @@ import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
 
 export
 class KLineWatcherRT {
-  public async Fetch(
-    exchange: Exchange,
-    symbol: string,
-    timeframe: string,
-    limit: number,
-  ) {
+  public async Fetch(exchange: Exchange, symbol: string, timeframe: string, limit: number) {
     return ArrayToKLine(await exchange.fetchOHLCV(symbol, timeframe, undefined, limit));
   }
 
