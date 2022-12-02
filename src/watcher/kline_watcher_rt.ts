@@ -34,10 +34,10 @@ class KLineWatcherRT {
     exchange: Exchange,
     symbol: string,
     timeframe: string,
-    callback: (kline: OHLCV[]) => void,
+    callback: (data: [OHLCV, OHLCV]) => void,
   ) {
     try {
-      callback(await this.FetchRT(exchange, symbol, timeframe, 2));
+      callback((await this.FetchRT(exchange, symbol, timeframe, 2)) as [OHLCV, OHLCV]);
     } catch (e) {
       console.log(e);
     } finally {
@@ -59,12 +59,9 @@ class KLineWatcherRT {
     await this.Fetch(config.exchange, config.symbol, config.timeframe, config.bot.length, config.bot);
     console.log('monitor the market...');
     this.start(config.exchange, config.symbol, config.timeframe, (kline) => {
-      const last = kline[kline.length - 1];
-      if (last?.time > config.bot.last?.time) {
-        config.bot.Update(last);
-      } else {
-        console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
-      }
+      const [historical, active] = kline;
+      if (historical?.time > config.bot.last?.time) config.bot.Update(historical);
+      config.bot.Update(active);
     });
   }
 }
