@@ -56,8 +56,8 @@ class KLineWatcherRT {
     console.log('initialize data for the robot...');
     await this.Fetch(config.exchange, config.symbol, config.timeframe, config.bot.length, config.bot);
     console.log('monitor the market...');
-    this.start(config.exchange, config.symbol, config.timeframe, (kline) => {
-      const [historical, active] = kline;
+    this.start(config.exchange, config.symbol, config.timeframe, (data) => {
+      const [historical, active] = data;
       if (historical?.time > config.bot.last?.time) config.bot.Update(historical);
       config.bot.Update(active);
     });
