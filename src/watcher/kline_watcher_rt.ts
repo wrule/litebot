@@ -11,13 +11,13 @@ class KLineWatcherRT {
     limit: number,
     bot?: Bot<any, any>,
   ) {
-    const kline = await this.FetchRT(exchange, symbol, timeframe, limit + 1);
+    const kline = await this.Fetch(exchange, symbol, timeframe, limit + 1);
     kline.splice(kline.length - 1, 1);
     kline.forEach((ohlcv) => bot?.Update(ohlcv, false, false));
     return kline;
   }
 
-  public async FetchRT(
+  public async Fetch(
     exchange: Exchange,
     symbol: string,
     timeframe: string,
@@ -35,7 +35,7 @@ class KLineWatcherRT {
     callback: (data: [OHLCV, OHLCV]) => void,
   ) {
     try {
-      callback((await this.FetchRT(exchange, symbol, timeframe, 2)) as [OHLCV, OHLCV]);
+      callback((await this.Fetch(exchange, symbol, timeframe, 2)) as [OHLCV, OHLCV]);
     } catch (e) {
       console.log(e);
     } finally {
