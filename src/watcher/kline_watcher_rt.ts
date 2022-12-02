@@ -25,7 +25,7 @@ class KLineWatcherRT {
     timeframe: string,
     limit: number,
   ) {
-    return ArrayToKLine(await exchange.fetchOHLCV(symbol, timeframe, undefined, limit + 1));
+    return ArrayToKLine(await exchange.fetchOHLCV(symbol, timeframe, undefined, limit));
   }
 
   private interval!: number;
