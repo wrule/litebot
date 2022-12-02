@@ -37,7 +37,7 @@ class KLineWatcherRT {
     interval: number,
   }) {
     this.interval = config.interval;
-    console.log('initialize data for the robot...');
+    console.log('initialize data for the bot...');
     await this.FetchHistory(config.exchange, config.symbol, config.timeframe, config.bot.length, config.bot);
     console.log('monitor the market...');
     this.start(config.exchange, config.symbol, config.timeframe, (data) => {
