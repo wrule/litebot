@@ -37,6 +37,10 @@ class SpotSimpleTest {
 
   private final_price = NaN;
 
+  public get FinalPrice() {
+    return this.final_price;
+  }
+
   public Risk(price: number) {
     return (price - this.final_price) / this.final_price;
   }
