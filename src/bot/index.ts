@@ -2,7 +2,7 @@ import { TC } from '../tc';
 
 export
 abstract class Bot<T extends TC, Signal extends T> {
-  private queue: Signal[] = [];
+  protected queue: Signal[] = [];
 
   public Update(tc: T, enable = true, log = true) {
     this.queue = this.next([tc], this.queue);
