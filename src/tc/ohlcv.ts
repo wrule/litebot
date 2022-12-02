@@ -47,12 +47,14 @@ function ArrayToKLine(array: number[][], check_interval: boolean | number = true
 }
 
 export
-function ExpandKLine(kline: OHLCV[]) {
+function ExpandKLine(kline: OHLCV[], high_first: number) {
   const result: OHLCV[] = [];
   kline.forEach((item) => {
     result.push({ ...item, close: item.open, closed: false, opened: true });
-    result.push({ ...item, close: item.high, closed: false });
-    result.push({ ...item, close: item.low, closed: false });
+    const high = { ...item, close: item.high, closed: false };
+    const low = { ...item, close: item.low, closed: false };
+    if (Math.random() < high_first) result.push(high, low);
+    else result.push(low, high);
     result.push(item);
   });
   return result;

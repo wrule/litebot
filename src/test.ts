@@ -8,7 +8,7 @@ const kline2 = ArrayToKLine(data2, false);
 
 function main() {
   console.log('你好世界');
-  ExpandKLine(kline1);
+  ExpandKLine(kline1, 0);
 }
 
 main();
