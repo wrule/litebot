@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { Exchange } from 'ccxt';
 import { Bot } from '../bot';
 import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
