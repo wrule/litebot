@@ -11,9 +11,8 @@ class KLineWatcherRT {
     limit: number,
     bot?: Bot<any, any>,
   ) {
-    const data = await exchange.fetchOHLCV(symbol, timeframe, undefined, limit + 1);
-    data.splice(data.length - 1, 1);
-    const kline = ArrayToKLine(data);
+    const kline = await this.FetchRT(exchange, symbol, timeframe, limit + 1);
+    kline.splice(kline.length - 1, 1);
     kline.forEach((ohlcv) => bot?.Update(ohlcv, false, false));
     return kline;
   }
