@@ -4,7 +4,7 @@ import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
 
 export
 class KLineWatcherRT {
-  public async Fetch(
+  public async FetchHistory(
     exchange: Exchange,
     symbol: string,
     timeframe: string,
@@ -54,7 +54,7 @@ class KLineWatcherRT {
   }) {
     this.interval = config.interval;
     console.log('initialize data for the robot...');
-    await this.Fetch(config.exchange, config.symbol, config.timeframe, config.bot.length, config.bot);
+    await this.FetchHistory(config.exchange, config.symbol, config.timeframe, config.bot.length, config.bot);
     console.log('monitor the market...');
     this.start(config.exchange, config.symbol, config.timeframe, (data) => {
       const [historical, active] = data;
