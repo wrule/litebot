@@ -4,6 +4,15 @@ import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
 
 export
 class KLineWatcherRT {
+  public async Fetch(
+    exchange: Exchange,
+    symbol: string,
+    timeframe: string,
+    limit: number,
+  ) {
+    return ArrayToKLine(await exchange.fetchOHLCV(symbol, timeframe, undefined, limit));
+  }
+
   public async FetchHistory(
     exchange: Exchange,
     symbol: string,
@@ -15,15 +24,6 @@ class KLineWatcherRT {
     kline.splice(kline.length - 1, 1);
     kline.forEach((ohlcv) => bot?.Update(ohlcv, false, false));
     return kline;
-  }
-
-  public async Fetch(
-    exchange: Exchange,
-    symbol: string,
-    timeframe: string,
-    limit: number,
-  ) {
-    return ArrayToKLine(await exchange.fetchOHLCV(symbol, timeframe, undefined, limit));
   }
 
   private interval!: number;
