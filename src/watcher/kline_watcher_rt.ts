@@ -5,7 +5,9 @@ import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
 export
 class KLineWatcherRT {
   public async Fetch(exchange: Exchange, symbol: string, timeframe: string, limit: number) {
-    return ArrayToKLine(await exchange.fetchOHLCV(symbol, timeframe, undefined, limit));
+    const kline = ArrayToKLine(await exchange.fetchOHLCV(symbol, timeframe, undefined, limit));
+    kline[kline.length - 1] && (kline[kline.length - 1].closed = false);
+    return kline;
   }
 
   public async FetchHistory(exchange: Exchange, symbol: string, timeframe: string, limit: number, bot?: Bot<any, any>) {
