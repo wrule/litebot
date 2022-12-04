@@ -13,6 +13,7 @@ class SpotSimpleTest {
   public Reset() {
     this.funds = this.init_funds;
     this.assets = 0;
+    this.final_price = NaN;
   }
 
   public BuyAll(price: number) {
