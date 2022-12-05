@@ -57,6 +57,8 @@ class SpotReal {
     return (await this.config.exchange.fetchFreeBalance())[currency];
   }
 
+  private last_action = '';
+
   public async BuyAll(price: number, sync = false) {
     try {
       const request_time = Number(new Date());
@@ -77,6 +79,7 @@ class SpotReal {
       this.funds -= in_amount;
       this.assets += out_amount;
       this.final_price = order.price;
+      this.last_action = 'buy';
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time));
     } catch (e) {
       if (!sync && e instanceof ccxt.ExchangeError) this.BuyAll(price, true);
@@ -102,6 +105,7 @@ class SpotReal {
       const out_amount = order.cost - (this.config.symbol.endsWith(order.fee?.currency) ? order.fee.cost : 0);
       this.assets -= in_amount;
       this.funds += out_amount;
+      this.last_action = 'sell';
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time));
     } catch (e) {
       this.final_price = final_price;
