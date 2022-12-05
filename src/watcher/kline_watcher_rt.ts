@@ -19,7 +19,7 @@ class KLineWatcherRT {
 
   private interval!: number;
 
-  public async start(exchange: Exchange, symbol: string, timeframe: string, callback: (data: [OHLCV, OHLCV]) => void) {
+  private async start(exchange: Exchange, symbol: string, timeframe: string, callback: (data: [OHLCV, OHLCV]) => void) {
     try {
       callback((await this.Fetch(exchange, symbol, timeframe, 2)) as [OHLCV, OHLCV]);
     } catch (e) {
