@@ -60,6 +60,7 @@ class SpotReal {
   private last_action = '';
 
   public async BuyAll(price: number, sync = false) {
+    if (this.last_action === 'buy') return;
     try {
       const request_time = Number(new Date());
       const real_funds = sync ? await this.get_balance(this.funds_name) : this.funds;
@@ -89,6 +90,7 @@ class SpotReal {
   }
 
   public async SellAll(price: number, sync = false) {
+    if (this.last_action === 'sell') return;
     const final_price = this.final_price;
     this.final_price = NaN;
     try {
