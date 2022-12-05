@@ -74,7 +74,7 @@ class KLineWatcher {
         this.active_mode = false;
         config.bot.Update(last);
       } else {
-        console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
+        console.log(moment().format('YYYY-MM-DD HH:mm:ss'));
       }
     });
   }

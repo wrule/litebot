@@ -27,7 +27,7 @@ class SpotReal {
   private build_transaction_message(order: Order, price: number, in_out: [number, number], order_time: string) {
     const message = {
       name: this.config.name,
-      time: moment(new Date(order.timestamp)).format('YYYY-MM-DD HH:mm:ss'),
+      time: moment(order.timestamp).format('YYYY-MM-DD HH:mm:ss'),
       symbol: order.symbol, side: order.side,
       in_amount: in_out[0], out_amount: in_out[1],
       expected_price: price, final_price: order.price, deviation: `${(order.price - price) / price * 100}%`,
@@ -41,7 +41,7 @@ class SpotReal {
   private build_error_message(error: any, side?: string) {
     const message = {
       name: this.config.name,
-      time: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+      time: moment().format('YYYY-MM-DD HH:mm:ss'),
       symbol: this.config.symbol, side,
       message: error?.toString() || 'an error occurred, please check the log',
     };
