@@ -55,7 +55,7 @@ function ExpandKLine(kline: OHLCV[], high_first: number) {
     const low = { ...item, close: item.low, closed: false };
     if (Math.random() < high_first) result.push(high, low);
     else result.push(low, high);
-    result.push(item);
+    result.push({ ...item, closed: true });
   });
   return result;
 }
