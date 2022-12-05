@@ -26,7 +26,7 @@ abstract class Bot<T extends TC, Signal extends T> {
 
   public abstract length: number;
 
-  protected abstract next(tc: T[], queue: Signal[]): Signal[];
+  protected abstract next(tcs: T[], queue: Signal[]): Signal[];
 
   protected abstract exec(signal: Signal): void;
 }
