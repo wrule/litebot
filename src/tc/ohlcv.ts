@@ -26,7 +26,7 @@ function ArrayToOHLCV(array: number[]): OHLCV {
 }
 
 export
-function ArrayToKLine(array: number[][], check_interval: boolean | number = true): OHLCV[] {
+function ArrayToKLine(array: number[][], check_interval: boolean | number = true) {
   const kline: OHLCV[] = [];
   let count = 1;
   array.forEach((item, index) => {
