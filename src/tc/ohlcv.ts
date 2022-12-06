@@ -8,8 +8,8 @@ extends TC {
   high: number;
   low: number;
   volume: number;
-  opened?: boolean;
   closed?: boolean;
+  opened?: boolean;
 }
 
 export
@@ -22,6 +22,7 @@ function ArrayToOHLCV(array: number[]): OHLCV {
     close: array[4],
     volume: array[5],
     closed: true,
+    opened: true,
   };
 }
 
@@ -51,11 +52,11 @@ function ExpandKLine(kline: OHLCV[], high_first: number) {
   const result: OHLCV[] = [];
   kline.forEach((item) => {
     result.push({ ...item, close: item.open, closed: false, opened: true });
-    const high = { ...item, close: item.high, closed: false };
-    const low = { ...item, close: item.low, closed: false };
+    const high = { ...item, close: item.high, closed: false, opened: false };
+    const low = { ...item, close: item.low, closed: false, opened: false };
     if (Math.random() < high_first) result.push(high, low);
     else result.push(low, high);
-    result.push({ ...item, closed: true });
+    result.push({ ...item, closed: true, opened: true });
   });
   return result;
 }
