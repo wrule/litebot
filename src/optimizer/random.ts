@@ -1,3 +1,4 @@
+// 2022年12月08日23:27:14
 export
 interface Domain {
   [key: string]: [number, number];
