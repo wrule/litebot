@@ -1,5 +1,6 @@
 import { Exchange } from 'ccxt';
 import { Bot } from '../bot';
+import { TC } from '../tc';
 import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
 
 export
@@ -10,7 +11,7 @@ class KLineWatcherRT {
     return kline;
   }
 
-  public async FetchHistory(exchange: Exchange, symbol: string, timeframe: string, limit: number, bot?: Bot<any, any>) {
+  public async FetchHistory(exchange: Exchange, symbol: string, timeframe: string, limit: number, bot?: Bot<TC, TC>) {
     const kline = await this.Fetch(exchange, symbol, timeframe, limit + 1);
     kline.splice(kline.length - 1, 1);
     kline.forEach((ohlcv) => bot?.Update(ohlcv, false, false));
@@ -33,7 +34,7 @@ class KLineWatcherRT {
 
   public async RunBot(config: {
     exchange: Exchange,
-    bot: Bot<any, any>,
+    bot: Bot<TC, TC>,
     symbol: string,
     timeframe: string,
     interval: number,
