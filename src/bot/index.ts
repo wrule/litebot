@@ -6,7 +6,7 @@ abstract class Bot<T extends TC, Signal extends T> {
 
   public Update(tc: T, enable = true, log = true) {
     this.queue = this.next([tc], this.queue);
-    const last = this.last as Signal;
+    const last = this.last;
     enable && this.exec(last);
     log && console.log(last);
     this.queue.splice(0, this.queue.length - this.length + 1);
