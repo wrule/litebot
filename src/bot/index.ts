@@ -1,3 +1,4 @@
+// 2022年12月08日22:51:52
 import { TC } from '../tc';
 
 export
