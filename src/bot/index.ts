@@ -20,7 +20,7 @@ abstract class Bot<T extends TC, Signal extends T> {
     this.next(tcs, []).forEach((signal) => this.exec(signal));
   }
 
-  public get last(): Signal | undefined {
+  public get last() {
     return this.queue[this.queue.length - 1];
   }
 
