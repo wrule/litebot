@@ -1,3 +1,4 @@
+// 2022年12月09日00:21:56
 export
 interface SpotFull {
   BuyAll(price: number): void;
