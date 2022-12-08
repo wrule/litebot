@@ -2,6 +2,7 @@ import moment from 'moment';
 import { Exchange } from 'ccxt';
 import { Bot } from '../bot';
 import { ArrayToKLine, OHLCV } from '../tc/ohlcv';
+import { TC } from '../tc';
 
 export
 function TimeframeToMS(timeframe: string) {
@@ -17,7 +18,7 @@ class KLineWatcher {
     symbol: string,
     timeframe: string,
     limit: number,
-    bot?: Bot<any, any>,
+    bot?: Bot<TC, TC>,
   ) {
     const data = await exchange.fetchOHLCV(symbol, timeframe, undefined, limit + 1);
     data.splice(data.length - 1, 1);
@@ -57,7 +58,7 @@ class KLineWatcher {
 
   public async RunBot(config: {
     exchange: Exchange,
-    bot: Bot<any, any>,
+    bot: Bot<TC, TC>,
     symbol: string,
     timeframe: string,
     interval: number,
