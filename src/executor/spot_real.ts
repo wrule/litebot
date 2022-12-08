@@ -122,4 +122,8 @@ class SpotReal {
   public Offset(offset: number) {
     return this.final_price * (1 + offset);
   }
+
+  public Valuation(price: number) {
+    return this.funds + this.assets * price;
+  }
 }
