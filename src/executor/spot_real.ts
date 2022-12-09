@@ -31,7 +31,7 @@ class SpotReal {
       symbol: order.symbol, side: order.side,
       in_amount: in_out[0], out_amount: in_out[1],
       expected_price: price, final_price: order.price, deviation: `${(order.price - price) / price * 100}%`,
-      funds: this.funds, assets: this.assets,
+      funds: this.funds, assets: this.assets, valuation: this.Valuation(order.price),
       order_time,
     };
     console.log(message);
