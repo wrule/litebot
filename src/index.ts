@@ -8,7 +8,7 @@ export { Domain, Value, RandomSelect, Option, Random } from './optimizer/random'
 export { TC } from './tc';
 export { OHLCV, ArrayToOHLCV, ArrayToKLine, ExpandKLine } from './tc/ohlcv';
 export { FillParams } from './utils/cl_params';
-export { KLineWatcher } from './watcher/kline_watcher';
+export { KLineWatcher, TimeframeToMS } from './watcher/kline_watcher';
 export { KLineWatcherRT } from './watcher/kline_watcher_rt';
 export * as ccxt from 'ccxt';
 export * as t from 'tulind-wrapper';
