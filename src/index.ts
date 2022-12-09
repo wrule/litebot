@@ -1,3 +1,4 @@
+// 2022年12月09日12:19:19
 export { Bot } from './bot';
 export { SpotFull } from './executor/spot_full';
 export { SpotReal } from './executor/spot_real';
