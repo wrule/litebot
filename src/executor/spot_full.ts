@@ -5,4 +5,5 @@ interface SpotFull {
   SellAll(price: number): void;
   Offset(offset: number): number;
   Valuation(price: number): number;
+  ROI(price: number): number;
 }
