@@ -38,7 +38,7 @@ class SpotReal {
   private last_action = '';
   private init_valuation = NaN;
 
-  private build_transaction_message(order: Order, price: number, in_out: [number, number], order_time: string) {
+  private build_transaction_message(order: Order, price: number, in_out: [number, number], order_time: string, yield_rate?: string) {
     const message = {
       name: this.config.name,
       time: moment(order.timestamp).format('YYYY-MM-DD HH:mm:ss'),
@@ -48,7 +48,7 @@ class SpotReal {
       deviation: `${(order.price - price) / price * 100 * (order.side === 'buy' ? -1 : 1)}%`,
       funds: this.funds, assets: this.assets,
       valuation: this.Valuation(order.price), roi: `${this.ROI(order.price) * 100}%`,
-      order_time,
+      yield_rate, order_time,
     };
     console.log(message);
     return JSON.stringify(message, null, 2);
@@ -117,12 +117,13 @@ class SpotReal {
         this.config.exchange.amountToPrecision(this.config.symbol, this.assets),
       );
       const order_time = `${(Number(new Date()) - request_time) / 1000}s`;
+      const yield_rate = `${(order.price - final_price) / final_price * 100}%`;
       const in_amount = order.amount;
       const out_amount = order.cost - (this.config.symbol.endsWith(order.fee?.currency) ? order.fee.cost : 0);
       this.assets -= in_amount;
       this.funds += out_amount;
       this.last_action = 'sell';
-      this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time));
+      this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time, yield_rate));
     } catch (e) {
       this.final_price = final_price;
       if (!sync && e instanceof ccxt.ExchangeError) this.SellAll(price, true);
