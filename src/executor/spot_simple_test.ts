@@ -11,6 +11,7 @@ class SpotSimpleTest {
   private funds = 0;
   private assets = 0;
   private final_price = NaN;
+  private ext_fee = 0;
 
   public Reset() {
     this.funds = this.init_funds;
