@@ -53,4 +53,8 @@ class SpotSimpleTest {
   public get ExtFeeCount() {
     return this.ext_fee_count;
   }
+
+  public ValuationNet(price: number) {
+    return this.Valuation(price) - this.ExtFeeCount;
+  }
 }
