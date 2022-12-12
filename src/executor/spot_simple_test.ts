@@ -49,4 +49,8 @@ class SpotSimpleTest {
   public Offset(offset: number) {
     return this.final_price * (1 + offset);
   }
+
+  public get ExtFeeCount() {
+    return this.ext_fee_count;
+  }
 }
