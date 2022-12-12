@@ -26,8 +26,7 @@ class SpotReal {
     if (this.config.init_valuation != null) this.init_valuation = this.config.init_valuation;
     else (async () => {
       const ticker = await this.config.exchange.fetchTicker(this.config.symbol);
-      // ticker.
-      // this.init_valuation = this.funds + this.assets * data.last;
+      this.init_valuation = this.Valuation(ticker.bid);
     })();
   }
 
