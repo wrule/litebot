@@ -12,18 +12,24 @@ class SpotReal {
     symbol: string,
     funds: number,
     assets?: number,
+    final_price?: number,
+    last_action?: string,
     notifier?: Notifier,
   }) {
     this.funds = this.config.funds;
     this.assets = this.config.assets || 0;
     this.funds_name = this.config.symbol.split('/')[1];
     this.assets_name = this.config.symbol.split('/')[0];
+    this.final_price = this.config.final_price || NaN;
+    this.last_action = this.config.last_action || '';
   }
 
   private funds = 0;
   private assets = 0;
   private funds_name = '';
   private assets_name = '';
+  private final_price = NaN;
+  private last_action = '';
 
   private build_transaction_message(order: Order, price: number, in_out: [number, number], order_time: string) {
     const message = {
@@ -57,8 +63,6 @@ class SpotReal {
   private async get_balance(currency: string) {
     return (await this.config.exchange.fetchFreeBalance())[currency];
   }
-
-  private last_action = '';
 
   public async BuyAll(price: number, sync = false) {
     if (this.last_action === 'buy') return;
@@ -117,8 +121,6 @@ class SpotReal {
       this.send_message(this.build_error_message(e, 'sell'));
     }
   }
-
-  private final_price = NaN;
 
   public Offset(offset: number) {
     return this.final_price * (1 + offset);
