@@ -46,7 +46,7 @@ class SpotReal {
       in_amount: in_out[0], out_amount: in_out[1],
       expected_price: price, final_price: order.price, deviation: `${(order.price - price) / price * 100}%`,
       funds: this.funds, assets: this.assets,
-      valuation: this.Valuation(order.price), roi: this.ROI(order.price),
+      valuation: this.Valuation(order.price), roi: `${this.ROI(order.price) * 100}%`,
       order_time,
     };
     console.log(message);
