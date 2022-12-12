@@ -38,7 +38,7 @@ class SpotReal {
   private last_action = '';
   private init_valuation = NaN;
 
-  private build_transaction_message(order: Order, price: number, in_out: [number, number], order_time: string, yield_rate?: string) {
+  private build_transaction_message(order: Order, price: number, in_out: [number, number], order_time: string, yield_rate = '') {
     const message = {
       name: this.config.name,
       time: moment(order.timestamp).format('YYYY-MM-DD HH:mm:ss'),
