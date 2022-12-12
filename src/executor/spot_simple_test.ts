@@ -14,22 +14,26 @@ class SpotSimpleTest {
   private assets = 0;
   private fee = 0;
   private ext_fee = 0;
+  private ext_fee_count = 0;
   private final_price = NaN;
 
   public Reset() {
     this.funds = this.init_funds;
     this.assets = 0;
+    this.ext_fee_count = 0;
     this.final_price = NaN;
   }
 
   public BuyAll(price: number) {
     this.assets += (this.funds / price) * (1 - this.fee);
+    this.ext_fee_count += this.funds * this.ext_fee;
     this.funds = 0;
     this.final_price = this.final_price || price;
   }
 
   public SellAll(price: number) {
     this.funds += (this.assets * price) * (1 - this.fee);
+    this.ext_fee_count += (this.assets * price) * this.ext_fee;
     this.assets = 0;
     this.final_price = NaN;
   }
