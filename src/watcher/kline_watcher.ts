@@ -13,6 +13,8 @@ function TimeframeToMS(timeframe: string) {
 
 export
 class KLineWatcher {
+  public constructor(private readonly countdown = 8 * 1e3) { }
+
   public async Fetch(
     exchange: Exchange,
     symbol: string,
@@ -35,7 +37,7 @@ class KLineWatcher {
     if (this.active_mode) return this.interval;
     const current_time = Number(new Date());
     const next_time = current_time - current_time % this.kline_interval + this.kline_interval;
-    return next_time - current_time - 8 * 1e3;
+    return next_time - current_time - this.countdown;
   }
 
   private async start(
