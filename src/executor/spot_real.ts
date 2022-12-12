@@ -14,6 +14,7 @@ class SpotReal {
     assets?: number,
     final_price?: number,
     last_action?: string,
+    init_valuation?: number,
     notifier?: Notifier,
   }) {
     this.funds = this.config.funds;
@@ -22,6 +23,12 @@ class SpotReal {
     this.assets_name = this.config.symbol.split('/')[0];
     this.final_price = this.config.final_price || NaN;
     this.last_action = this.config.last_action || '';
+    if (this.config.init_valuation != null) this.init_valuation = this.config.init_valuation;
+    else (async () => {
+      const ticker = await this.config.exchange.fetchTicker(this.config.symbol);
+      // ticker.
+      // this.init_valuation = this.funds + this.assets * data.last;
+    })();
   }
 
   private funds = 0;
