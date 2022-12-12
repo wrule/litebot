@@ -3,15 +3,18 @@ export
 class SpotSimpleTest {
   public constructor(
     private readonly init_funds = 100,
-    private readonly fee = 0.001,
+    fee = 0.001,
   ) {
+    this.fee = fee >= 0 ? fee : 0;
+    this.ext_fee = fee >= 0 ? 0 : -fee;
     this.Reset();
   }
 
   private funds = 0;
   private assets = 0;
-  private final_price = NaN;
+  private fee = 0;
   private ext_fee = 0;
+  private final_price = NaN;
 
   public Reset() {
     this.funds = this.init_funds;
