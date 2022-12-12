@@ -30,6 +30,7 @@ class SpotReal {
   private assets_name = '';
   private final_price = NaN;
   private last_action = '';
+  private init_valuation = NaN;
 
   private build_transaction_message(order: Order, price: number, in_out: [number, number], order_time: string) {
     const message = {
@@ -128,5 +129,9 @@ class SpotReal {
 
   public Valuation(price: number) {
     return this.funds + this.assets * price;
+  }
+
+  public ROI(price: number) {
+    return (this.Valuation(price) - this.init_valuation) / this.init_valuation;
   }
 }
