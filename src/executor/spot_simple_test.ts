@@ -10,6 +10,7 @@ class SpotSimpleTest {
 
   private funds = 0;
   private assets = 0;
+  private final_price = NaN;
 
   public Reset() {
     this.funds = this.init_funds;
@@ -36,8 +37,6 @@ class SpotSimpleTest {
   public ROI(price: number) {
     return (this.Valuation(price) - this.init_funds) / this.init_funds;
   }
-
-  private final_price = NaN;
 
   public Offset(offset: number) {
     return this.final_price * (1 + offset);
