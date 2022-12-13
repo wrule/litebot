@@ -1,6 +1,5 @@
 // 2022年12月08日23:42:46
-import yargs from 'yargs/yargs';
-import { hideBin }  from 'yargs/helpers';
+import * as args from '@wrule/args';
 
 function params_command_line_view(params: any) {
   const cp = { ...params };
@@ -19,8 +18,8 @@ function params_view(params: any) {
 
 export
 function FillParams(params: any) {
-  Object.entries(yargs(hideBin(process.argv)).argv).forEach(([key, value]) => {
-    if (key !== '_' && key !== '$0' && params[key] == null) throw `unknown param ${key}`;
+  Object.entries(args.parse(process.argv)).forEach(([key, value]) => {
+    if (!(key in params)) throw `unknown param ${key}`;
     params[key] = value;
   });
   console.log(params_command_line_view(params));
