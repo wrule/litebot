@@ -23,7 +23,7 @@ class SpotReal {
     this.assets_name = this.config.symbol.split('/')[0];
     this.final_price = this.config.final_price || NaN;
     this.last_action = this.config.last_action || '';
-    if (this.config.init_valuation != null) this.init_valuation = this.config.init_valuation;
+    if (this.config.init_valuation) this.init_valuation = this.config.init_valuation;
     else (async () => {
       const ticker = await this.config.exchange.fetchTicker(this.config.symbol);
       this.init_valuation = this.Valuation(ticker.bid);
