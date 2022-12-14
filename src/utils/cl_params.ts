@@ -7,6 +7,6 @@ function FillParams(params: any) {
     if (!(key in params)) throw `unknown param ${key}`;
     params[key] = value;
   });
-  console.log(`./${args.file_name(process.argv[1])} ${args.unparse_str(params)}`);
+  console.log(`./${args.file_name(process.argv[1])} ${args.stringify(params)}`);
   console.log(params);
 }
