@@ -114,10 +114,12 @@ class SpotReal {
       const request_time = Number(new Date());
       const real_assets = sync ? await this.get_balance(this.assets_name) : this.assets;
       this.assets = this.assets > real_assets ? real_assets : this.assets;
-      const order = await this.config.exchange.createMarketSellOrder(
+      let order = await this.config.exchange.createMarketSellOrder(
         this.config.symbol,
         this.config.exchange.amountToPrecision(this.config.symbol, this.assets),
       );
+      this.config.exchange.id === 'okx' &&
+        (order = await this.config.exchange.fetchOrder(order.id, order.symbol));
       const order_time = `${(Number(new Date()) - request_time) / 1000}s`;
       const yield_rate = `${(order.price - final_price) / final_price * 100}%`;
       const in_amount = order.amount;
