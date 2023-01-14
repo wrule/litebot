@@ -79,14 +79,15 @@ class SpotReal {
       const request_time = Number(new Date());
       const real_funds = sync ? await this.get_balance(this.funds_name) : this.funds;
       this.funds = this.funds > real_funds ? real_funds : this.funds;
-      const order = await this.config.exchange.createMarketOrder(
+      const order = await this.config.exchange.createMarketBuyOrder(
         this.config.symbol,
-        'buy',
-        0,
-        undefined,
+        this.config.exchange.costToPrecision(this.config.symbol, this.funds),
         {
-          quoteOrderQty: this.config.exchange.costToPrecision(this.config.symbol, this.funds),
-        },
+          quoteOrderQty: this.config.exchange.id === 'binance' ?
+            this.config.exchange.costToPrecision(this.config.symbol, this.funds) : undefined,
+          tgtCcy: this.config.exchange.id === 'okx' ?
+            'quote_ccy' : undefined,
+        } as any,
       );
       const order_time = `${(Number(new Date()) - request_time) / 1000}s`;
       const in_amount = order.cost;
