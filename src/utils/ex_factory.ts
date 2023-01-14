@@ -7,6 +7,6 @@ extends Exchange {
 }
 
 export
-function ExFactory(config: ExFactoryConfig) {
-  return new (ccxt as any)[config.exchange](config);
+function ExFactory(config?: ExFactoryConfig) {
+  return new (ccxt as any)[config?.exchange || 'binance'](config) as Exchange;
 }
