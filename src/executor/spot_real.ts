@@ -38,6 +38,18 @@ class SpotReal {
   private last_action = '';
   private init_valuation = NaN;
 
+  public States() {
+    return {
+      funds: this.funds,
+      assets: this.assets,
+      funds_name: this.funds_name,
+      assets_name: this.assets_name,
+      final_price: this.final_price,
+      last_action: this.last_action,
+      init_valuation: this.init_valuation,
+    };
+  }
+
   private build_transaction_message(order: Order, price: number, in_out: [number, number], order_time: string, yield_rate = '') {
     const message = {
       name: this.config.name,

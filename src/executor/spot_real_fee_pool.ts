@@ -44,6 +44,20 @@ class SpotReal {
   private readonly fee: number;
   private fee_pool = 0;
 
+  public States() {
+    return {
+      funds: this.funds,
+      assets: this.assets,
+      funds_name: this.funds_name,
+      assets_name: this.assets_name,
+      final_price: this.final_price,
+      last_action: this.last_action,
+      init_valuation: this.init_valuation,
+      fee: this.fee,
+      fee_pool: this.fee_pool,
+    };
+  }
+
   private build_transaction_message(order: Order, price: number, in_out: [number, number], order_time: string, yield_rate = '') {
     const message = {
       name: this.config.name,
