@@ -97,8 +97,10 @@ class SpotReal {
         console.log(e);
       }
       const in_amount = order.cost;
-      const out_amount = order.amount - (this.config.symbol.startsWith(order.fee?.currency) ? order.fee.cost : 0);
+      const fee = (this.config.symbol.startsWith(order.fee?.currency) ? order.fee.cost : 0);
+      const out_amount = order.amount - fee;
       this.funds -= in_amount;
+      if (fee === 0) this.funds -= in_amount * 0.00075;
       this.assets += out_amount;
       this.final_price = order.price;
       this.last_action = 'buy';
