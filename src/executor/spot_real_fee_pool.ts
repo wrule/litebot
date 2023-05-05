@@ -133,9 +133,11 @@ class SpotReal {
       }
       const yield_rate = `${(order.price - final_price) / final_price * 100}%`;
       const in_amount = order.amount;
-      const out_amount = order.cost - (this.config.symbol.endsWith(order.fee?.currency) ? order.fee.cost : 0);
+      const fee = (this.config.symbol.endsWith(order.fee?.currency) ? order.fee.cost : 0);
+      const out_amount = order.cost - fee;
       this.assets -= in_amount;
       this.funds += out_amount;
+      if (fee === 0) this.funds -= out_amount * 0.00075;
       this.last_action = 'sell';
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time, yield_rate));
     } catch (e) {
