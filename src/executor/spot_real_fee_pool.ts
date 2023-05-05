@@ -5,7 +5,7 @@ import { Exchange, Order } from 'ccxt';
 import { Notifier } from '../notifier';
 
 export
-class SpotReal {
+class SpotRealFeePool {
   public constructor(private readonly config: {
     name: string,
     exchange: Exchange,
