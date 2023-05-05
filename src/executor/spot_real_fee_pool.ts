@@ -17,6 +17,7 @@ class SpotReal {
     init_valuation?: number,
     notifier?: Notifier,
     fee?: number,
+    fee_pool?: number,
   }) {
     this.funds = this.config.funds;
     this.assets = this.config.assets || 0;
@@ -30,6 +31,7 @@ class SpotReal {
       this.init_valuation = this.Valuation(ticker.bid);
     })();
     this.fee = this.config.fee || 0.00075;
+    this.fee_pool = this.config.fee_pool || 0;
   }
 
   private funds = 0;
@@ -40,6 +42,7 @@ class SpotReal {
   private last_action = '';
   private init_valuation = NaN;
   private readonly fee: number;
+  private fee_pool = 0;
 
   private build_transaction_message(order: Order, price: number, in_out: [number, number], order_time: string, yield_rate = '') {
     const message = {
@@ -103,7 +106,10 @@ class SpotReal {
       const fee_amount = (this.config.symbol.startsWith(order.fee?.currency) ? order.fee.cost : 0);
       const out_amount = order.amount - fee_amount;
       this.funds -= in_amount;
-      if (fee_amount === 0) this.funds -= in_amount * this.fee;
+      if (fee_amount === 0) {
+        this.funds -= in_amount * this.fee;
+        this.fee_pool += in_amount * this.fee;
+      }
       this.assets += out_amount;
       this.final_price = order.price;
       this.last_action = 'buy';
@@ -140,7 +146,10 @@ class SpotReal {
       const out_amount = order.cost - fee_amount;
       this.assets -= in_amount;
       this.funds += out_amount;
-      if (fee_amount === 0) this.funds -= out_amount * this.fee;
+      if (fee_amount === 0) {
+        this.funds -= out_amount * this.fee;
+        this.fee_pool += out_amount * this.fee;
+      }
       this.last_action = 'sell';
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time, yield_rate));
     } catch (e) {
