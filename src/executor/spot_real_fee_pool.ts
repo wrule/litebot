@@ -97,10 +97,10 @@ class SpotReal {
         console.log(e);
       }
       const in_amount = order.cost;
-      const fee = (this.config.symbol.startsWith(order.fee?.currency) ? order.fee.cost : 0);
-      const out_amount = order.amount - fee;
+      const fee_amount = (this.config.symbol.startsWith(order.fee?.currency) ? order.fee.cost : 0);
+      const out_amount = order.amount - fee_amount;
       this.funds -= in_amount;
-      if (fee === 0) this.funds -= in_amount * 0.00075;
+      if (fee_amount === 0) this.funds -= in_amount * 0.00075;
       this.assets += out_amount;
       this.final_price = order.price;
       this.last_action = 'buy';
@@ -133,11 +133,11 @@ class SpotReal {
       }
       const yield_rate = `${(order.price - final_price) / final_price * 100}%`;
       const in_amount = order.amount;
-      const fee = (this.config.symbol.endsWith(order.fee?.currency) ? order.fee.cost : 0);
-      const out_amount = order.cost - fee;
+      const fee_amount = (this.config.symbol.endsWith(order.fee?.currency) ? order.fee.cost : 0);
+      const out_amount = order.cost - fee_amount;
       this.assets -= in_amount;
       this.funds += out_amount;
-      if (fee === 0) this.funds -= out_amount * 0.00075;
+      if (fee_amount === 0) this.funds -= out_amount * 0.00075;
       this.last_action = 'sell';
       this.send_message(this.build_transaction_message(order, price, [in_amount, out_amount], order_time, yield_rate));
     } catch (e) {
