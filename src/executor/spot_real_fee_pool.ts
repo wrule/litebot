@@ -16,6 +16,7 @@ class SpotReal {
     last_action?: string,
     init_valuation?: number,
     notifier?: Notifier,
+    fee?: number,
   }) {
     this.funds = this.config.funds;
     this.assets = this.config.assets || 0;
@@ -28,6 +29,7 @@ class SpotReal {
       const ticker = await this.config.exchange.fetchTicker(this.config.symbol);
       this.init_valuation = this.Valuation(ticker.bid);
     })();
+    this.fee = this.config.fee || 0.00075;
   }
 
   private funds = 0;
@@ -37,6 +39,7 @@ class SpotReal {
   private final_price = NaN;
   private last_action = '';
   private init_valuation = NaN;
+  private fee = 0;
 
   private build_transaction_message(order: Order, price: number, in_out: [number, number], order_time: string, yield_rate = '') {
     const message = {
