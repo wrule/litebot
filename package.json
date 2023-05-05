@@ -1,6 +1,6 @@
 {
   "name": "litebot",
-  "version": "0.2.19",
+  "version": "0.2.20",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
