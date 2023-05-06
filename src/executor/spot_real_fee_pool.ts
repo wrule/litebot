@@ -119,6 +119,7 @@ class SpotRealFeePool {
       const in_amount = order.cost;
       const fee_amount = (this.config.symbol.startsWith(order.fee?.currency) ? order.fee.cost : 0);
       console.log('buy-log', fee_amount, this.config.symbol, order.fee?.currency, order.fee?.cost);
+      console.log(JSON.stringify(order, null, 2));
       const out_amount = order.amount - fee_amount;
       this.funds -= in_amount;
       if (fee_amount === 0) {
@@ -159,6 +160,7 @@ class SpotRealFeePool {
       const in_amount = order.amount;
       const fee_amount = (this.config.symbol.endsWith(order.fee?.currency) ? order.fee.cost : 0);
       console.log('sell-log', fee_amount, this.config.symbol, order.fee?.currency, order.fee?.cost);
+      console.log(JSON.stringify(order, null, 2));
       const out_amount = order.cost - fee_amount;
       this.assets -= in_amount;
       this.funds += out_amount;
