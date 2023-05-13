@@ -16,12 +16,18 @@ class SpotSimpleTest {
   private ext_fee = 0;
   private ext_fee_count = 0;
   private final_price = NaN;
+  private transactions = 0;
+
+  public get Transactions() {
+    return this.transactions;
+  }
 
   public Reset() {
     this.funds = this.init_funds;
     this.assets = 0;
     this.ext_fee_count = 0;
     this.final_price = NaN;
+    this.transactions = 0;
   }
 
   public BuyAll(price: number) {
@@ -29,6 +35,7 @@ class SpotSimpleTest {
     this.ext_fee_count += this.funds * this.ext_fee;
     this.funds = 0;
     this.final_price = this.final_price || price;
+    this.transactions++;
   }
 
   public SellAll(price: number) {
@@ -36,6 +43,7 @@ class SpotSimpleTest {
     this.ext_fee_count += (this.assets * price) * this.ext_fee;
     this.assets = 0;
     this.final_price = NaN;
+    this.transactions++;
   }
 
   public Valuation(price: number) {
