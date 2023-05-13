@@ -58,6 +58,10 @@ class SpotSimpleTest {
     return this.final_price * (1 + offset);
   }
 
+  public Risk(price: number) {
+    return (price - this.final_price) / this.final_price;
+  }
+
   public get ExtFeeCount() {
     return this.ext_fee_count;
   }
