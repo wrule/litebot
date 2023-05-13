@@ -55,6 +55,7 @@ class SpotSimpleTest {
   }
 
   public ValuationNet(price: number) {
+    // 这里可能有两路逻辑（BNB抵扣/非BNB抵扣），以后需要修改
     return this.Valuation(price) - this.ExtFeeCount;
   }
 
