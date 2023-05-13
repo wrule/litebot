@@ -54,9 +54,11 @@ class SpotSimpleTest {
     return this.ext_fee_count;
   }
 
-  public ValuationNet(price: number) {
-    // 这里可能有两路逻辑（BNB抵扣/非BNB抵扣），以后需要修改
-    return this.Valuation(price) - this.ExtFeeCount;
+  public ValuationNet(price: number, return_rate = 0.35) {
+    if (this.p_fee >= 0)
+      return this.Valuation(price) + this.ExtFeeCount * return_rate;
+    else
+      return this.Valuation(price) - this.ExtFeeCount;
   }
 
   public ROINet(price: number) {
