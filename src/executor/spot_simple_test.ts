@@ -3,10 +3,10 @@ export
 class SpotSimpleTest {
   public constructor(
     private readonly init_funds = 100,
-    fee = 0.001,
+    private readonly p_fee = 0.001,
   ) {
-    this.fee = fee >= 0 ? fee : 0;
-    this.ext_fee = fee >= 0 ? fee : -fee;
+    this.fee = p_fee >= 0 ? p_fee : 0;
+    this.ext_fee = p_fee >= 0 ? p_fee : -p_fee;
     this.Reset();
   }
 
