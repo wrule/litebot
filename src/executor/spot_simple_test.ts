@@ -61,7 +61,10 @@ class SpotSimpleTest {
       return this.Valuation(price) - this.ExtFeeCount;
   }
 
-  public ROINet(price: number) {
-    return (this.ValuationNet(price) - this.init_funds) / this.init_funds;
+  public ROINet(price: number, return_rate = 0.35) {
+    if (this.p_fee >= 0)
+      return (this.ValuationNet(price, return_rate) - this.init_funds) / this.init_funds;
+    else
+      return (this.ValuationNet(price) - this.init_funds) / this.init_funds;
   }
 }
