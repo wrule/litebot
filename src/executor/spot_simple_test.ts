@@ -6,7 +6,7 @@ class SpotSimpleTest {
     fee = 0.001,
   ) {
     this.fee = fee >= 0 ? fee : 0;
-    this.ext_fee = fee >= 0 ? 0 : -fee;
+    this.ext_fee = fee >= 0 ? fee : -fee;
     this.Reset();
   }
 
