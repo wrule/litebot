@@ -1,4 +1,6 @@
 // 2022年12月08日23:27:14
+import cluster from 'cluster';
+
 export
 interface Domain {
   [key: string]: [number, number];
@@ -40,7 +42,8 @@ class Random<Params> {
       const result = option.target(params);
       if (result > max) {
         max = result;
-        console.log(max, params);
+        if (cluster.isMaster) console.log(max, params);
+        else process.send?.(['new_max', [max, params]]);
       }
     }
   }
