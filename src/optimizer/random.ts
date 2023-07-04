@@ -49,10 +49,9 @@ class Random<Params> {
       const last_argv = process.argv[process.argv.length - 1];
       const parallel_number = /^\d+$/.test(last_argv) ? Number(last_argv) - 1 : 0;
       const workers = Array(parallel_number).fill(0).map(() => cluster.fork());
-      workers.forEach((worker) => worker.on('message', (data: [number, Params]) => {
-        console.log(process.pid, data);
-        new_max(...data);
-      }));
+      workers.forEach(
+        (worker) => worker.on('message', (data: [number, Params]) => new_max(...data))
+      );
     } else console.log('sub process:', process.pid);
 
     const backtesting = () => {
