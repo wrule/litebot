@@ -35,16 +35,32 @@ export
 class Random<Params> {
   public Search(option: Option<Params>) {
     let max = -Infinity;
+
+    const new_max = (value: number, params: Params) => {
+      if (value > max) {
+        max = value;
+        if (cluster.isMaster) console.log(max, params);
+        else process.send?.([max, params]);
+      }
+    }
+
+    if (cluster.isMaster) {
+      console.log('main process:', process.pid);
+      const last_argv = process.argv[process.argv.length - 1];
+      const parallel_number = /^\d+$/.test(last_argv) ? Number(last_argv) - 1 : 0;
+      const workers = Array(parallel_number).fill(0).map(() => cluster.fork());
+      workers.forEach((worker) => worker.on('message', (data: [number, Params]) => {
+        console.log(process.pid, data);
+        new_max(...data);
+      }));
+    } else console.log('sub process:', process.pid);
+
     while (true) {
       const value = RandomSelect(option.domain);
       const params = option.mapper ? option.mapper(value) : value as Params;
       if (option.filter && !option.filter(params)) continue;
       const result = option.target(params);
-      if (result > max) {
-        max = result;
-        if (cluster.isMaster) console.log(max, params);
-        else process.send?.(['new_max', [max, params]]);
-      }
+      new_max(result, params);
     }
   }
 }
