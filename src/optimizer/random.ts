@@ -55,12 +55,15 @@ class Random<Params> {
       }));
     } else console.log('sub process:', process.pid);
 
-    while (true) {
+    const backtesting = () => {
       const value = RandomSelect(option.domain);
       const params = option.mapper ? option.mapper(value) : value as Params;
-      if (option.filter && !option.filter(params)) continue;
+      if (option.filter && !option.filter(params)) return;
       const result = option.target(params);
       new_max(result, params);
-    }
+    };
+
+    if (cluster.isMaster) setInterval(() => backtesting());
+    else while (true) backtesting();
   }
 }
