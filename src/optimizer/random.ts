@@ -32,6 +32,12 @@ interface Option<Params> {
 }
 
 export
+function Loop(func: () => void) {
+  func();
+  setImmediate(() => Loop(func));
+}
+
+export
 class Random<Params> {
   public Search(option: Option<Params>) {
     let max = -Infinity;
@@ -62,7 +68,7 @@ class Random<Params> {
       new_max(result, params);
     };
 
-    if (cluster.isMaster) setInterval(() => backtesting());
+    if (cluster.isMaster) Loop(() => backtesting());
     else while (true) backtesting();
   }
 }
