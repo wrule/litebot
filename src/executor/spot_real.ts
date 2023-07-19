@@ -95,8 +95,8 @@ class SpotReal {
         this.config.symbol,
         this.config.exchange.costToPrecision(this.config.symbol, this.funds),
         {
-          quoteOrderQty: this.config.exchange.id === 'binance' ?
-            this.config.exchange.costToPrecision(this.config.symbol, this.funds) : undefined,
+          // quoteOrderQty: this.config.exchange.id === 'binance' ?
+          //   this.config.exchange.costToPrecision(this.config.symbol, this.funds) : undefined,
           tgtCcy: this.config.exchange.id === 'okx' ?
             'quote_ccy' : undefined,
         } as any,
