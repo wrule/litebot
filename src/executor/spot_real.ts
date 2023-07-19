@@ -91,9 +91,19 @@ class SpotReal {
       const request_time = Number(new Date());
       const real_funds = sync ? await this.get_balance(this.funds_name) : this.funds;
       this.funds = this.funds > real_funds ? real_funds : this.funds;
+
+      // 补丁代码
+      let amount = this.funds;
+      if (this.config.exchange.id === 'binance') {
+        const ticker = await this.config.exchange.fetchTicker(this.config.symbol);
+        amount = this.config.exchange.amountToPrecision(
+          this.config.symbol, this.funds / ticker.ask
+        );
+      }
+
       let order = await this.config.exchange.createMarketBuyOrder(
         this.config.symbol,
-        this.config.exchange.costToPrecision(this.config.symbol, this.funds),
+        this.config.exchange.costToPrecision(this.config.symbol, amount),
         {
           // quoteOrderQty: this.config.exchange.id === 'binance' ?
           //   this.config.exchange.costToPrecision(this.config.symbol, this.funds) : undefined,
