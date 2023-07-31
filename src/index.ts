@@ -14,4 +14,4 @@ export { ExFactoryConfig, ExFactory } from './utils/ex_factory';
 export { KLineWatcher, TimeframeToMS } from './watcher/kline_watcher';
 export { KLineWatcherRT } from './watcher/kline_watcher_rt';
 export * as ccxt from 'ccxt';
-export * as t from 'tulind-wrapper';
+export * as t from 'tulip-wasm';
